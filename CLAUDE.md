@@ -89,6 +89,8 @@ These rules apply to every session. If a rule here blocks a request, say so and 
 - The builder never approves its own work.
 - The reviewer agent (`.claude/agents/reviewer.md`) signs off each phase against the brief, the
   design doc, this file, and the tests. Its findings are fixed before the phase is called done.
+- After every phase, call the reviewer agent. Do not move on until it returns APPROVED. Log
+  anything it caught in docs/LESSONS.md.
 
 ## Lessons
 - Every bug fix, and every correction from me, gets one line in `docs/LESSONS.md`:
@@ -99,7 +101,8 @@ These rules apply to every session. If a rule here blocks a request, say so and 
 ```
 turn-the-dial/
 ├── CLAUDE.md                  This file
-├── .claude/agents/            Agent definitions (reviewer.md)
+├── .claude/agents/            Agent definitions (game-designer, unity-builder, blender-artist,
+│                              balance-analyst, reviewer)
 ├── docs/
 │   ├── GAME_BRIEF.md          Single source of truth
 │   ├── CONCEPT.md             Original approved concept (history only)
