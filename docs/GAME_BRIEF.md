@@ -48,7 +48,7 @@ A **daypart** is one fight against one rival. It lasts a fixed number of turns: 
 - **Rival audience hits 0:** you win immediately.
 - **Your listeners hit 0:** the run ends immediately, in any fight.
 - **Ratings check** (after the final rival phase): your share = listeners ÷ maximum listeners. The rival's share = audience ÷ its starting audience. The higher share wins, and a tie goes to you.
-- **Ratings loss:** in a regular Daypart or Prime Time you get no rewards and lose 10% of your maximum listeners (rounded up), and the run continues. Losing a boss on ratings ends the run.
+- **Ratings loss:** in a regular Daypart or Prime Time you get no rewards and lose 10% of your current listeners (rounded up), and the run continues. Your maximum listeners don't change. Losing a boss on ratings ends the run.
 
 ### Reach resolution (order of operations)
 For a song: `Reach = floor((base + Hype) × (1 + 0.1 × Flow) × Burnout factor × Exposed factor)`
@@ -278,7 +278,9 @@ Two kinds of view. **Fights use the desk view:** a fixed seat in the booth, wher
 | --- | --- |
 | Tuner (across the top of the window) | Your frequency on the left (amber dot) and the rival's on the right (teal diamond). The needle drifts toward whoever is winning on share. The rival's intent and any Monitor peeks show above the rival's frequency. |
 | Wall clock | Turns remaining in the hour (one tick per turn), and boss countdowns. |
-| On-air light (red) | Danger only: lights when ending the turn now would cause Dead Air, or when the next steal would end the run. |
+| On-air light (red) | Glows steadily while you're on air. Flickers and dims as a warning when ending the turn now would cause Dead Air, or when the next steal would end the run. The warning state is the danger signal. |
+| Corkboard (left wall) | Your statuses as sticky notes: Hype stacks, and Burnout on songs in play. Each note shows an icon and a stack count. |
+| Sticky notes by the rival's frequency (right) | The rival's statuses: Buzz, Lock, Exposed. Each note shows an icon and a stack count. |
 | Desk mat | Your hand. |
 | Left turntable | Cue slot. |
 | Right turntable | What the rival has on air (its current show, placard). |
@@ -323,9 +325,9 @@ Two kinds of view. **Fights use the desk view:** a fixed seat in the booth, wher
 | Afternoon drive | Deep warm orange and coral. Low sun on the right, long shadows across the desk. |
 | Overnight | Deep blue with warm lamp glow. |
 
-**Color rule (hard requirement).** **You are a steady round amber dot on the left. The rival is a blinking teal diamond on the right.** Every you-versus-rival signal uses all four cues: color, shape, side, and motion (your lights glow steadily, the rival's blink). The rival's teal is dimmer and deeper than your amber, so the two read as different grays. Red (the on-air light) means danger only. Every wash must pass a grayscale check.
+**Color rule (hard requirement).** **You are a steady round amber dot on the left. The rival is a blinking teal diamond on the right.** Every you-versus-rival signal uses all four cues: color, shape, side, and motion (your lights glow steadily, the rival's blink). The rival's teal is dimmer and deeper than your amber, so the two read as different grays. Red means danger only. The on-air light glows steadily while you're on air; its danger signal is the warning state, when it flickers and dims (section 10). Every wash must pass a grayscale check.
 
-> **Fix needed:** the current booth keys show the rival as a round dot. In grayscale it reads the same as yours. Re-key the tuner with a teal diamond before using the keys as targets.
+The booth keys are mood and layout targets. Where their tuner markers differ from this section, the color rule wins.
 
 **Pipeline.** Every prop maps its faces to one shared palette texture, so Tripo exports match automatically and a recolor is a single image edit. Animation is mechanical only: platters, faders, needles, the tuner. Townsfolk are simple, chunky figures with idle loops at most.
 
@@ -368,5 +370,4 @@ Anything not in this brief is out of scope until it is added here.
 ### Still open (not blocking a first playable)
 - **Music source and budget.**
 - **Steam subtitle and trademark search.**
-- **Town map and vista keys:** `KEY_town_map.png` and `KEY_town_vista.png` aren't in `docs/refs` yet. Sections 6 and 10 need checking against them once they're added.
 - **Design docs to write:** `docs/design/rivals.md` (12 + 4 patterns), `docs/design/bosses.md` (Big Metro second rules), and the full card, gear, staff and event lists.
