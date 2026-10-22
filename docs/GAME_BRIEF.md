@@ -68,10 +68,10 @@ Non-song cards that deal Reach skip Hype and the Flow multiplier. Drop cards fol
 | **Rival audience** | Rival | The rival's health. Its starting value is used for the ratings check. Values in section 7. |
 | **Airtime** | You | 3 per turn. Unspent Airtime is lost at end of turn. Card costs are 0 to 3. |
 | **Cash** | You | Start the run with 50. Earned mostly from Ads. Spent at Sponsor Meetings. Kept for the whole run. |
-| **Loyalty** | You | Block. Absorbs incoming steals before your listeners take any. Clears at the start of your turn. Does **not** block Dead Air. |
+| **Loyalty** | You | Block. Absorbs rival steals before your listeners take any, and nothing else. Clears at the start of your turn. Does **not** block Dead Air, Ad listener costs, or any other listener loss. |
 | **Lock** | Rival | Rival block, from the Heavy Rotation intent. Absorbs your Reach first. Clears at the start of the rival phase. |
 | **Flow** | You | Combo counter, 0 to 10 (cap can be raised by Loop, gear and cards). Each song adds **+1** if its tempo is higher than the last song's (tempo ramp) and **+1** if both it and the last song are your format's genre (genre streak). Each stack gives songs **+10% Reach**. Flow lasts the whole daypart. **Breaks to 0:** playing an Ad, taking Dead Air, or certain rival effects. A song with lower tempo only misses the ramp bonus. "Last song" = the most recent Song played this daypart; non-song cards don't change it, except an Ad, which clears it. |
-| **Drop** | Card keyword | `Drop N`: deal the card's base Reach + N × Flow, ignoring the Flow multiplier, then set Flow to 0. Hype and Burnout still apply if the card is a Song. |
+| **Drop** | Card keyword | `Drop N`: deal the card's base Reach + N × Flow, ignoring the Flow multiplier, then set Flow to 0. Hype and Burnout still apply if the card is a Song. The Drop resolves last: a Drop Song's own Flow update happens first and is then wiped, so Flow is always 0 after a Drop card. |
 | **Hype** | You | Each stack gives every Song you play +1 Reach (added to base, before the Flow multiplier). −1 at the end of your turn. Built by Promos. |
 | **Buzz** | Rival | While Buzz is above 0, the rival's steals take **50% more** listeners (rounded down). −1 at the end of the rival phase. Already included in the intent number shown. |
 | **Burnout** | Song card | Each repeat play of a song with the same name (remastered versions count) in a daypart adds 1 Burnout. **−25% Reach per stack**, never below 25% of base. Resets after the daypart. |
@@ -132,7 +132,7 @@ Every card is a data asset; no card logic is hard-coded per card (pillar 7).
 | --- | --- | --- | --- |
 | **Max listeners** | 85 | 70 | 78 |
 | **Playstyle** | Steady and durable. Big single hits, strong Loyalty. Forgiving: the format for new players. | Combo engine. Long tempo ramps and Flow chains. High risk, high ceiling. | Community and sustain. Listener mail, call-ins, slow-building Hype. |
-| **Signature** | **Anthem:** the first Song you play each turn gets +50% Reach (multiplied after the Flow multiplier) and gives Loyalty equal to its tempo × 2. Only applies to cards with the Anthem keyword. | **Loop:** Flow cap is 15. A tempo 1 song played right after a tempo 5 song counts as a rising ramp. | **Mailbag:** Reach converts to listeners at 20% instead of 10%. Hype doesn't drop at end of turn if you played a DJ Break that turn. |
+| **Signature** | **Anthem:** the first Anthem-keyword Song you play each turn gets +50% Reach (multiplied after the Flow multiplier) and gives Loyalty equal to its tempo × 2, regardless of what was played before it. Songs without Anthem never use up the bonus. | **Loop:** Flow cap is 15. A tempo 1 song played right after a tempo 5 song counts as a rising ramp. | **Mailbag:** Reach converts to listeners at 20% instead of 10%. Hype doesn't drop at end of turn if you played a DJ Break that turn. |
 | **Starting gear** | Ribbon Mic: your first DJ Break each turn gives +3 Loyalty. | Sampler: the first time Flow reaches 5 in a daypart, draw 2. | Mail Sack: after winning a daypart, recover 4 listeners. |
 
 **Starting decks (10 cards each, template 4 songs / 3 DJ breaks / 1 liner / 1 ad / 1 signature).** Values *(tune)*; remastered (RM) values in brackets.
@@ -149,7 +149,10 @@ Every card is a data asset; no card logic is hard-coded per card (pillar 7).
 **Hip-Hop Heat**
 | Qty | Card | Type | Cost | Effect |
 | --- | --- | --- | --- | --- |
-| 4 | Block Party | Song · Hip-Hop · T1/T2/T3/T4 (one of each) | 1 | 5 Reach [7] |
+| 1 | Corner Cypher | Song · Hip-Hop · T1 | 1 | 5 Reach [7] |
+| 1 | Block Party | Song · Hip-Hop · T2 | 1 | 5 Reach [7] |
+| 1 | Basement Session | Song · Hip-Hop · T3 | 1 | 5 Reach [7] |
+| 1 | Rooftop Jam | Song · Hip-Hop · T4 | 1 | 5 Reach [7] |
 | 2 | Shout-Out | DJ Break | 1 | 4 Loyalty [7] |
 | 1 | Hype Man | DJ Break · Drop 2 | 1 | 3 Reach + Drop 2 [Drop 3] |
 | 1 | Air Horn | Liner | 0 | Your next Song counts as +1 tempo for the ramp [and draw 1] |
@@ -169,10 +172,10 @@ Every card is a data asset; no card logic is hard-coded per card (pillar 7).
 
 ## 6. Run structure
 
-**One run = one ratings season = 3 books.** Target 35 to 45 minutes. You can save and quit at any node; the run resumes at that node.
+**One run = one ratings season = 3 books.** Target 35 to 45 minutes. You can save and quit at any node; the run resumes at that node. Quitting mid-fight resumes at the start of the current turn, from a snapshot taken at turn start (same seed, same intents).
 
 **Map rules (per book):**
-- 8 rows: 7 rows of nodes, then the boss. 3 lanes; each row has 2 to 4 nodes. Every node connects to 1 or 2 nodes in the next row. Paths may cross lanes but never cross each other.
+- 8 rows: 7 rows of nodes, then the boss. 3 lanes; each row has 2 to 3 nodes. Every node connects to 1 or 2 nodes in the next row. Paths may cross lanes but never cross each other.
 - The whole book and every node type are visible from the start (pillar 1).
 - **Row 1:** all Daypart. **Row 4:** all Remote Broadcast. **Row 7:** all Production Room. **Row 8:** Ratings Book boss.
 - **Rows 2, 3, 5, 6** are weighted *(tune)*: Daypart 45%, Station Event 25%, Sponsor Meeting 12%, Prime Time 10% (rows 3 and up only), Production Room 8%.

@@ -72,6 +72,8 @@ Win and loss are also checked after each end-turn step.
 - A Steal of X (Buzz already included) is absorbed by Loyalty first; the rest lowers your listeners.
 - A Big Segment shown as N hits resolves each hit separately through Loyalty.
 - Steals don't add to the rival's audience.
+- **Loyalty only absorbs rival steals. Decided.** Ad listener costs, Dead Air, Complaint Call and
+  every other listener loss ignore Loyalty.
 
 ### Dead Air
 Triggers at end of turn if no On Air card was played that turn.
@@ -114,7 +116,6 @@ Triggers at end of turn if no On Air card was played that turn.
 - Commercial Break is the shown intent during the player phase in which Exposed applies.
 
 ## Open questions (ask before building)
-- Ad listener costs: does Loyalty absorb them? Proposed: no, like Dead Air (self-inflicted).
 - Do daypart-start gear and staff fire before or after the turn-1 Loyalty clear? Proposed: daypart-start
   Loyalty is granted after the turn-1 clear so it isn't wasted.
 
@@ -122,7 +123,7 @@ Triggers at end of turn if no On Air card was played that turn.
 - [ ] Turn loop runs headless for 6, 7 and 8 turns with the exact phase order above
 - [ ] Reach formula tested for Song, non-song, Exposed, Burnout floor, Anthem, Lock absorb
 - [ ] Listener conversion tested at 10%, 20%, rounding down and the maximum cap
-- [ ] Steal, Big Segment hits and Loyalty absorb tested
+- [ ] Steal, Big Segment hits and Loyalty absorb tested; Ad costs and Complaint Call ignore Loyalty
 - [ ] Dead Air 5/10/15 and 8/13/18, ignoring Loyalty, breaking Flow
 - [ ] Win/loss after every card and every end-turn step
 - [ ] Ratings check, tie rule, ratings-loss penalty, boss loss ends run

@@ -27,6 +27,9 @@ No hidden randomness: the pattern is the rival. Players learn it and program aro
 - Market modifiers (College Town +10% audience, True Crime Suburbia Buzz 1) apply on top.
 
 ### Regular rivals (12, 4 per book, 6 turns)
+**Decided:** Playlist Bot is in book 2. Oldies Gold 1490 moved to book 1 in its place: it is the
+gentlest of the book 2 shows (mostly Lock, small Steals, no Buzz or Interference), so book 1 stays the
+easiest. Both were rescaled to their new book's values.
 
 **Book 1** (audience 45–55)
 | Rival | Aud. | Personality | T1 | T2 | T3 | T4 | T5 | T6 |
@@ -34,12 +37,12 @@ No hidden randomness: the pattern is the rival. Players learn it and program aro
 | Morning Zoo | 50 | Chaotic. Heavy Interference, small mixed Steals. | I 2 Static → draw | S 6 | I 1 Complaint Call → discard | S 7 | I 2 Static → draw | BS 2 hits × 6 |
 | Smooth Jazz 98.3 | 55 | Quietly heals. A ratings grind. | HR 6 | S 6 | C 8 | HR 6 | C 8 | S 7 |
 | Sports Talk Guys | 45 | Hits hard, then burns out. | BS 2 hits × 8 | CB | BS 2 hits × 8 | CB | BS 2 hits × 9 | CB |
-| Playlist Bot | 50 | Copies your genre. **Passive:** after its Lock clears each rival phase, gains Lock equal to your genre streak. | S 7 | HR 6 | S 7 | S 8 | HR 6 | S 8 |
+| Oldies Gold 1490 | 50 | Never changes the playlist. A wall of Lock, small Steals. | HR 6 | HR 6 | S 7 | C 8 | HR 6 | S 8 |
 
 **Book 2** (audience 65–80)
 | Rival | Aud. | Personality | T1 | T2 | T3 | T4 | T5 | T6 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Oldies Gold 1490 | 80 | Never changes the playlist. A wall of Lock. | HR 9 | HR 9 | S 10 | C 12 | HR 9 | S 11 |
+| Playlist Bot | 70 | Copies your genre. **Passive:** after its Lock clears each rival phase, gains Lock equal to your genre streak. | S 10 | HR 9 | S 10 | S 11 | HR 9 | S 11 |
 | Hot Hits 104 | 70 | Rides the trend, then cashes it. | T 2 | S 10 (shown 15) | T 2 | BS 20 (shown 30) | CB | S 11 |
 | Late Night Love Lines | 75 | Call-in show. Floods you with calls. | I 2 Complaint Calls → draw | S 9 | I 2 Complaint Calls → draw | C 12 | S 12 | I 3 Complaint Calls → discard |
 | College Radio WKRU | 65 | Erratic-looking but fixed. Big swings, long breaks. | CB | BS 2 hits × 11 | I 3 Static → discard | CB | BS 2 hits × 11 | T 2 |
@@ -88,7 +91,6 @@ Every audience and intent number in the tables above, plus:
 - Outrage Buzz is gained during your turn, so it lasts through the coming rival phase, then −1.
 
 ## Open questions (ask before building)
-- The four named rivals are placed in book 1 here. Confirm, or spread them across books.
 - Which elites can appear in which books, and can the same elite appear twice in a run? Proposed: any book,
   no repeats per run.
 

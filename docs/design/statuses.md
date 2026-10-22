@@ -15,7 +15,7 @@ Hype have their own doc (`flow.md`).
 | Rival audience | Rival | Contest (not above start) | Your Reach past Lock | Rival health; 0 = you win. |
 | Airtime | You | Set to 3 (+mods) at turn start | Lost at end of turn | Pays card costs 0–3. |
 | Cash | You | Starts 50; Ads, rewards, events | Shop, events | Kept for the run. Never negative. |
-| Loyalty | You | Cards, gear, staff | Clears to 0 at your turn start | Absorbs steals first. Doesn't block Dead Air. |
+| Loyalty | You | Cards, gear, staff | Clears to 0 at your turn start | Absorbs rival steals first, and nothing else. Doesn't block Dead Air, Ad costs, or other listener loss. |
 | Lock | Rival | Heavy Rotation, Playlist Bot | Clears at start of rival phase | Absorbs your Reach first. |
 | Buzz | Rival | Trending, True Crime Suburbia | −1 at end of rival phase | Steals take 50% more (rounded down). Included in shown number. |
 | Burnout | Song (by name) | +1 per repeat play this daypart | Resets after the daypart | −25% Reach per stack, floor 25%. |

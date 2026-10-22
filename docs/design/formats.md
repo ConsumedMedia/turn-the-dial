@@ -19,8 +19,9 @@ and a 10-card starting deck. Talk Radio is out of scope for v1.
 You start a run at full listeners (= max).
 
 ### Signatures
-- **Anthem (Classic Rock):** the first Song you play each turn gets +50% Reach (multiplied after the
-  Flow multiplier) and gives Loyalty equal to its tempo × 2. Only applies to cards with the Anthem keyword.
+- **Anthem (Classic Rock):** the first Anthem-keyword Song you play each turn gets +50% Reach
+  (multiplied after the Flow multiplier) and gives Loyalty equal to its tempo × 2, regardless of what
+  was played before it. Songs without Anthem never use up the bonus. **Decided.**
 - **Loop (Hip-Hop Heat):** Flow cap 15. A tempo 1 song right after a tempo 5 song counts as a ramp.
 - **Mailbag (Country Roads):** Reach converts to listeners at 20% instead of 10%. Hype doesn't drop at
   end of turn if you played a DJ Break that turn.
@@ -44,7 +45,10 @@ You start a run at full listeners (= max).
 **Hip-Hop Heat**
 | Qty | Card | Type | Cost | Effect |
 | --- | --- | --- | --- | --- |
-| 4 | Block Party | Song · Hip-Hop · T1/T2/T3/T4 (one each) | 1 | 5 Reach [7] |
+| 1 | Corner Cypher | Song · Hip-Hop · T1 | 1 | 5 Reach [7] |
+| 1 | Block Party | Song · Hip-Hop · T2 | 1 | 5 Reach [7] |
+| 1 | Basement Session | Song · Hip-Hop · T3 | 1 | 5 Reach [7] |
+| 1 | Rooftop Jam | Song · Hip-Hop · T4 | 1 | 5 Reach [7] |
 | 2 | Shout-Out | DJ Break | 1 | 4 Loyalty [7] |
 | 1 | Hype Man | DJ Break · Drop 2 | 1 | 3 Reach + Drop 2 [Drop 3] |
 | 1 | Air Horn | Liner | 0 | Next Song +1 tempo for the ramp [and draw 1] |
@@ -76,19 +80,19 @@ All numbers in the tables above, plus:
 | `mailSack.recover` | 4 |
 
 ## Edge cases
-- Anthem: if the first Song of the turn has no Anthem keyword, no Anthem bonus that turn (see open question).
+- Anthem: Album Cut then Power Ballad in one turn: Power Ballad still gets the bonus.
+- Anthem: two Anthem songs in one turn: only the first gets the bonus.
+- Anthem on a Drop song: the +50% applies to the Drop formula's result.
 - Sampler: Flow reaching 5 via a jump (4 → 6) counts as reaching 5. Triggers once per daypart.
 - Sampler draw 2 with a full hand: extras go to discard.
 - Mail Sack at max listeners: no effect.
-- Block Party: four cards share a name, so playing two in a daypart adds Burnout.
+- Hip-Hop starter songs: Corner Cypher, Block Party, Basement Session and Rooftop Jam have different
+  names, so playing all four in a daypart adds no Burnout. **Decided.**
 - Loop + Air Horn: tempo 5 + 1 = 6 for the ramp check; a T1 after it still counts as a ramp.
 
 ## Open questions (ask before building)
-- **Anthem:** "the first Song you play each turn" + "only applies to cards with Anthem". Does a
-  non-Anthem first song use up the bonus (proposed), or does the first *Anthem* song get it?
 - **Mail Sack:** "after winning a daypart" — does it include Prime Time and boss wins? Proposed: yes, any fight.
 - **Remastered Ads:** the brief lists only the Cash change; confirm listener cost is unchanged.
-- **Block Party Burnout:** intended, or should each tempo have its own name?
 
 ## Done checklist
 - [ ] Format data assets for all three, exported to Core

@@ -10,7 +10,7 @@ fully visible from the start (pillar 1), ending in a Ratings Book boss. Target r
 
 ### Layout per book
 - 8 rows: 7 rows of nodes, then the boss.
-- 3 lanes. Each row has 2 to 4 nodes (see open question).
+- 3 lanes. Each row has 2 to 3 nodes. **Decided.**
 - Every node connects to 1 or 2 nodes in the next row. Paths may cross lanes but never cross each other.
 - Every node in row 7 connects to the boss.
 - The whole book and every node type are visible from the start.
@@ -59,20 +59,19 @@ In row 2 Prime Time is removed and the other weights are renormalized.
 | --- | --- |
 | `map.rows` | 8 |
 | `map.lanes` | 3 |
-| `map.nodesPerRow` | 2–4 |
+| `map.nodesPerRow` | 2–3 |
 | `map.weights` | 45 / 25 / 12 / 10 / 8 |
 | `map.fightsPerPath` | 4–5 |
 | `map.maxRerolls` | 50 |
 
 ## Edge cases
-- A row with 2 nodes and a next row with 4: each node needs 2 links, so all 4 are reachable.
+- A row with 2 nodes and a next row with 3: at least one node needs 2 links so all 3 are reachable.
+- A row with 3 nodes and a next row with 2: links converge; no node is left without an outgoing link.
 - A node with no incoming link is not allowed (every node is reachable).
 - A path that would have 3 fights: fails the constraint, reroll.
 - Two paths sharing a node: allowed; only line crossings are forbidden.
 
 ## Open questions (ask before building)
-- **3 lanes but up to 4 nodes per row** conflict. Proposed: "lanes" are the visual columns paths
-  drift between, and up to 4 nodes fit across them. Or: cap at 3 nodes per row. Need your call.
 - Should the boss row count toward "about 4 to 5 fights"? Proposed: yes.
 
 ## Done checklist

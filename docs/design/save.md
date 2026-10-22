@@ -23,7 +23,11 @@ cut count; seen events; offered gear; per-run counters for Ratings Points; save 
 ### When to save
 - Autosave on entering every node and after every node's outcome is resolved.
 - On quit from the map: save and return to title.
-- Mid-fight: the run save holds the state from when you entered the fight node (see open question).
+- **Mid-fight. Decided.** At the start of every player turn (before Loyalty clears and before the
+  draw), Core takes a fight snapshot: piles in order, hand, cue slot, all statuses, Flow, last song,
+  Burnout, Dead Air count, rival state and pattern position, and every RNG stream's state. Quitting
+  mid-fight saves that snapshot; resuming restarts the current turn from it. Same seed, same draws,
+  same intents. Actions taken earlier in the quit turn are lost.
 - Writes are atomic: write to a temp file, then replace.
 
 ### Load
@@ -44,14 +48,14 @@ cut count; seen events; offered gear; per-run counters for Ratings Points; save 
 - Corrupt `profile.json`: restore from `.bak`; if none, warn before creating a new one.
 - Steam Cloud conflict: Steam's newer-file prompt; profile files are small and whole-file.
 - Content id removed in an update: never remove shipped ids (CLAUDE.md); migration maps renamed ones.
-
-## Open questions (ask before building)
-- **Quit mid-fight:** resume restarts the fight from daypart start with the same seed (proposed — deterministic,
-  so no reroll abuse), or save every action and resume mid-turn?
+- Quit mid-turn after drawing: resume replays the turn start and draws the same 5 cards.
+- Loose Cannon roll at turn start: the snapshot is taken before the roll, so the resumed turn rolls
+  the same result.
 
 ## Done checklist
 - [ ] Save data is plain Core types, serialized with no Unity dependency
 - [ ] Round-trip test: save → load → identical state and identical future rolls
+- [ ] Mid-fight test: play part of a turn, quit, resume → same hand, same intent, same outcome for the same inputs
 - [ ] Atomic write and `.bak` recovery tested
 - [ ] Version migration framework with a v0→v1 test
 - [ ] Continue / abandon flow on the title screen

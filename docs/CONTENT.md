@@ -16,7 +16,10 @@ v1 targets: ~120 cards (~30 per format + ~30 shared), ~22 gear, ~8 staff, 12 riv
 | `card.cr.car_dealer_spot` | Car Dealer Spot | Classic Rock | Ad | Starter | formats.md | designed |
 | `card.cr.power_ballad` | Power Ballad | Classic Rock | Song · Rock · T2 · Anthem | Starter | formats.md | designed |
 | `card.sh.station_id` | Station ID | Shared | Liner | Starter | formats.md | designed |
-| `card.hh.block_party` | Block Party (T1–T4) | Hip-Hop Heat | Song · Hip-Hop | Starter | formats.md | designed |
+| `card.hh.corner_cypher` | Corner Cypher | Hip-Hop Heat | Song · Hip-Hop · T1 | Starter | formats.md | designed |
+| `card.hh.block_party` | Block Party | Hip-Hop Heat | Song · Hip-Hop · T2 | Starter | formats.md | designed |
+| `card.hh.basement_session` | Basement Session | Hip-Hop Heat | Song · Hip-Hop · T3 | Starter | formats.md | designed |
+| `card.hh.rooftop_jam` | Rooftop Jam | Hip-Hop Heat | Song · Hip-Hop · T4 | Starter | formats.md | designed |
 | `card.hh.shout_out` | Shout-Out | Hip-Hop Heat | DJ Break | Starter | formats.md | designed |
 | `card.hh.hype_man` | Hype Man | Hip-Hop Heat | DJ Break · Drop 2 | Starter | formats.md | designed |
 | `card.hh.air_horn` | Air Horn | Hip-Hop Heat | Liner | Starter | formats.md | designed |
@@ -29,8 +32,6 @@ v1 targets: ~120 cards (~30 per format + ~30 shared), ~22 gear, ~8 staff, 12 riv
 | `card.int.static` | Static | — | Interference · Unplayable | Special | statuses.md | designed |
 | `card.int.complaint_call` | Complaint Call | — | Interference | Special | statuses.md | designed |
 
-Block Party is four card assets (one per tempo) that share a name.
-
 ## Rivals
 
 | Id | Name | Kind | Book | Source doc | Status |
@@ -38,8 +39,8 @@ Block Party is four card assets (one per tempo) that share a name.
 | `rival.morning_zoo` | Morning Zoo | Regular | 1 | rivals.md | designed |
 | `rival.smooth_jazz` | Smooth Jazz 98.3 | Regular | 1 | rivals.md | designed |
 | `rival.sports_talk` | Sports Talk Guys | Regular | 1 | rivals.md | designed |
-| `rival.playlist_bot` | Playlist Bot | Regular | 1 | rivals.md | designed |
-| `rival.oldies_gold` | Oldies Gold 1490 | Regular | 2 | rivals.md | designed |
+| `rival.oldies_gold` | Oldies Gold 1490 | Regular | 1 | rivals.md | designed |
+| `rival.playlist_bot` | Playlist Bot | Regular | 2 | rivals.md | designed |
 | `rival.hot_hits` | Hot Hits 104 | Regular | 2 | rivals.md | designed |
 | `rival.love_lines` | Late Night Love Lines | Regular | 2 | rivals.md | designed |
 | `rival.wkru` | College Radio WKRU | Regular | 2 | rivals.md | designed |

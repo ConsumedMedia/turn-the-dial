@@ -35,6 +35,9 @@ Hype is a flat bonus built by Promos. Together they are the radio-programming sk
   `Reach = floor((base + Hype + N × Flow) × Anthem × Burnout × Exposed × boss modifiers)`
 - If not a Song: `Reach = floor((base + N × Flow) × Exposed)`.
 - Exposed applies (it affects all your Reach).
+- **The Drop resolves last. Decided.** On a Drop Song, the order is: Reach, then the song's own Flow
+  update (ramp/streak), then the Drop sets Flow to 0, wiping that update. Flow is always 0 after a
+  Drop card. The Drop Song still becomes the last song.
 
 ### Hype
 - Each stack gives every Song +1 Reach, added to base before the Flow multiplier.
@@ -65,12 +68,12 @@ format's genre ending at the last song (resets on an off-genre song or an Ad cle
 - Flow at cap gaining +2: stays at cap.
 - Drop with Flow 0: deals base (+Hype if Song).
 - Hype at 0 at end of turn: stays 0.
-- Same-name songs with different tempos (Block Party T1–T4) still share Burnout.
+- Same-name songs share Burnout regardless of tempo (the Hip-Hop starter songs have distinct names
+  so they don't).
+- Banger (T5, Drop 3) after a T4 song: earns the ramp, then the Drop wipes it; Flow ends at 0 and the
+  next song ramps from tempo 5.
 
 ## Open questions (ask before building)
-- **Drop Songs (Banger):** Drop sets Flow to 0, but the brief also says a Song updates Flow after its
-  Reach. Does Banger leave Flow at 0, or reset then gain (ending at 1–2)? Proposed: reset last, Flow ends at 0;
-  last song becomes Banger.
 - Hype decrement under Mailbag: does a DJ Break played from the cue slot count? Proposed: yes.
 
 ## Done checklist
@@ -78,7 +81,7 @@ format's genre ending at the last song (resets on an off-genre song or an Ad cle
 - [ ] Ad breaks Flow and clears last song; Dead Air breaks Flow
 - [ ] Loop 5→1 ramp and cap 15
 - [ ] Air Horn ramp bonus, stacked and across an Ad
-- [ ] Drop formula for Song and non-song, Flow reset
+- [ ] Drop formula for Song and non-song, Flow reset after the song's own Flow update
 - [ ] Hype added before multiplier, decay, Mailbag exception
 - [ ] Genre streak count exposed for Playlist Bot
 - [ ] Reviewer sign-off

@@ -33,10 +33,10 @@ and 5), the boss also gains Buzz 2, so each Feed lands at Buzz 1 (24 → shown 3
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | S 11 | HR 9 | S 12 | I 2 Static → draw | S 12 | HR 9 | BS 2 hits × 12 | S 13 |
 
-**Big Metro second rule — Personalized Ads:** each Steal gains +2 for each different genre you
-played last turn (shown in the intent number).
-*Answer:* Loyalty and non-song Reach (DJ Breaks, Drops), so you don't have to mix genres to dodge
-the Algorithm.
+**Big Metro second rule — Recommended for You. Decided.** The Algorithm's −50% also applies to
+whichever genre you have played most this daypart overall (shown on the placard next to last
+turn's genre). A genre targeted by both rules still takes −50% once; the penalties don't stack.
+*Answer:* still mixing genres, but planned across the whole fight, not just turn to turn.
 
 ### Book 3: The Flip (corporate format flip)
 **The Flip:** at turn 5, falling tempo builds Flow instead of rising tempo, and your genre streak
@@ -59,7 +59,6 @@ stops counting. The countdown shows from turn 1.
 | `satelliteFeed.every / amount` | 3 / 24 |
 | `networkPromo.buzz` | 2 |
 | `algorithm.reachFactor` | 0.5 |
-| `personalizedAds.perGenre` | 2 |
 | `flip.turn` | 5 |
 | `newManagement.draw` | 4 |
 
@@ -67,6 +66,10 @@ stops counting. The countdown shows from turn 1.
 - Algorithm on turn 1: no previous turn, no penalty.
 - Algorithm tie (two genres equally most): proposed both get −50%. Shown on the placard.
 - Algorithm with only non-song cards played last turn: no penalty this turn.
+- Recommended for You on turn 1: no songs played yet this daypart, no penalty.
+- Proposed (see open question): Recommended for You updates after every Song, so the daypart-most
+  genre can change mid-turn; the placard updates immediately and the tooltip shows the counts.
+- Recommended for You tie (two genres equally most this daypart): same tie rule as the Algorithm.
 - The Flip: Loop's "T1 after T5" rule becomes "T5 after T1" counts as falling? Proposed: Loop's
   special case mirrors (T5 right after T1 counts as a falling ramp).
 - The Flip with Air Horn: Air Horn adds +1 tempo, which hurts a falling ramp. Proposed: after the flip,
@@ -78,6 +81,8 @@ stops counting. The countdown shows from turn 1.
 ## Open questions (ask before building)
 - Boss names above are working names. Confirm or rename.
 - Algorithm ties, Loop and Air Horn under The Flip (proposals above).
+- Recommended for You: does "this daypart overall" count songs from the current turn (proposed: yes,
+  updating after each Song), or only completed turns?
 - Satellite Feed size (24 at book 1) — tune in the sim against Classic Rock's Loyalty.
 
 ## Done checklist
