@@ -31,7 +31,8 @@ Hype is a flat bonus built by Promos. Together they are the radio-programming sk
   genre streak stops counting (see `bosses.md`).
 
 ### Drop
-**Decided (brief §3).** A Drop card deals one number as one hit:
+**Decided (brief §3; Hype and Burnout for Drop Songs only, Exposed and boss modifiers for every Drop
+card: confirmed by the user 2026-10-22).** A Drop card deals one number as one hit:
 
 `Reach = floor((base + Hype + N × Flow) × Anthem × Burnout × Exposed × boss modifiers)`
 

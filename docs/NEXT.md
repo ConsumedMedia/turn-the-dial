@@ -16,10 +16,6 @@ rounds changed only `docs/design/`, `CONTENT.md`, `LESSONS.md` and this file.
 - CLAUDE.md's Determinism stream list doesn't include the proposed `rng.staff` stream (`save.md`).
   If the user accepts it, only the user can add it to CLAUDE.md.
 
-## Needs user confirmation
-- The brief keeps Hype and Burnout for Drop Songs only (Hype Man ignores Hype); the user hasn't
-  confirmed this yet.
-
 ## Open questions
 Most important first. Full lists: each doc's Open questions section.
 
