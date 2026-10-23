@@ -1,0 +1,19 @@
+{
+    "name": "TurnTheDial.Data.Editor",
+    "rootNamespace": "TurnTheDial.Data.Editor",
+    "references": [
+        "TurnTheDial.Core",
+        "TurnTheDial.Data"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

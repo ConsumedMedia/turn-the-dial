@@ -16,11 +16,11 @@ v1 targets: 3 formats, 6 markets, ~120 cards (~30 per format + ~30 shared), ~22 
 
 | Id | Name | Pool | Type | Rarity | Source doc | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| `card.cr.album_cut` | Album Cut | Classic Rock | Song · Rock · T3 | Starter | formats.md | designed |
-| `card.cr.request_line` | Request Line | Classic Rock | DJ Break | Starter | formats.md | designed |
-| `card.cr.car_dealer_spot` | Car Dealer Spot | Classic Rock | Ad | Starter | formats.md | designed |
-| `card.cr.power_ballad` | Power Ballad | Classic Rock | Song · Rock · T2 · Anthem | Starter | formats.md | designed |
-| `card.sh.station_id` | Station ID | Shared *(Proposed)* | Liner | Starter | formats.md | designed |
+| `card.cr.album_cut` | Album Cut | Classic Rock | Song · Rock · T3 | Starter | formats.md | tested |
+| `card.cr.request_line` | Request Line | Classic Rock | DJ Break | Starter | formats.md | tested |
+| `card.cr.car_dealer_spot` | Car Dealer Spot | Classic Rock | Ad | Starter | formats.md | tested |
+| `card.cr.power_ballad` | Power Ballad | Classic Rock | Song · Rock · T2 · Anthem | Starter | formats.md | tested |
+| `card.sh.station_id` | Station ID | Shared *(Proposed)* | Liner | Starter | formats.md | tested |
 | `card.hh.corner_cypher` | Corner Cypher | Hip-Hop Heat | Song · Hip-Hop · T1 | Starter | formats.md | designed |
 | `card.hh.block_party` | Block Party | Hip-Hop Heat | Song · Hip-Hop · T2 | Starter | formats.md | designed |
 | `card.hh.basement_session` | Basement Session | Hip-Hop Heat | Song · Hip-Hop · T3 | Starter | formats.md | designed |
@@ -34,8 +34,8 @@ v1 targets: 3 formats, 6 markets, ~120 cards (~30 per format + ~30 shared), ~22 
 | `card.cc.listener_mail` | Listener Mail | Country Roads | DJ Break | Starter | formats.md | designed |
 | `card.cc.feed_store_spot` | Feed Store Spot | Country Roads | Ad | Starter | formats.md | designed |
 | `card.cc.caller_nine_wins` | Caller Nine Wins | Country Roads | Promo | Starter | formats.md | designed |
-| `card.int.static` | Static | Rival | Interference · Unplayable | Special | statuses.md | designed |
-| `card.int.complaint_call` | Complaint Call | Rival | Interference | Special | statuses.md | designed |
+| `card.int.static` | Static | Rival | Interference · Unplayable | Special | statuses.md | tested |
+| `card.int.complaint_call` | Complaint Call | Rival | Interference | Special | statuses.md | tested |
 
 **Proposed:** Station ID is one card in the Shared pool, used by both the Classic Rock and Country
 Roads starter decks, rather than one copy per format pool. Its rarity is Starter, and rewards and shops
@@ -48,7 +48,7 @@ Shared id (proposed, less duplicated data)?
 
 | Id | Name | Signature | Starting gear | Source doc | Status |
 | --- | --- | --- | --- | --- | --- |
-| `format.classic_rock` | Classic Rock | Anthem | `gear.ribbon_mic` | formats.md | designed |
+| `format.classic_rock` | Classic Rock | Anthem | `gear.ribbon_mic` | formats.md | tested |
 | `format.hip_hop_heat` | Hip-Hop Heat | Loop | `gear.sampler` | formats.md | designed |
 | `format.country_roads` | Country Roads | Mailbag | `gear.mail_sack` | formats.md | designed |
 
@@ -67,7 +67,7 @@ Shared id (proposed, less duplicated data)?
 
 | Id | Name | Kind | Book | Source doc | Status |
 | --- | --- | --- | --- | --- | --- |
-| `rival.morning_zoo` | Morning Zoo | Regular | 1 | rivals.md | designed |
+| `rival.morning_zoo` | Morning Zoo | Regular | 1 | rivals.md | tested |
 | `rival.smooth_jazz` | Smooth Jazz 98.3 | Regular | 1 | rivals.md | designed |
 | `rival.sports_talk` | Sports Talk Guys | Regular | 1 | rivals.md | designed |
 | `rival.oldies_gold` | Oldies Gold 1490 | Regular | 1 | rivals.md | designed |
@@ -91,7 +91,7 @@ Shared id (proposed, less duplicated data)?
 
 | Id | Name | Rarity | Source doc | Status |
 | --- | --- | --- | --- | --- |
-| `gear.ribbon_mic` | Ribbon Mic | Starter (Classic Rock) | gear.md | designed |
+| `gear.ribbon_mic` | Ribbon Mic | Starter (Classic Rock) | gear.md | tested |
 | `gear.sampler` | Sampler | Starter (Hip-Hop Heat) | gear.md | designed |
 | `gear.mail_sack` | Mail Sack | Starter (Country Roads) | gear.md | designed |
 

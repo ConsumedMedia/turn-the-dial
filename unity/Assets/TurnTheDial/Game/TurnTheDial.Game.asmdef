@@ -1,0 +1,20 @@
+{
+    "name": "TurnTheDial.Game",
+    "rootNamespace": "TurnTheDial.Game",
+    "references": [
+        "TurnTheDial.Core",
+        "TurnTheDial.Data",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

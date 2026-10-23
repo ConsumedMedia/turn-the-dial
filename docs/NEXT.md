@@ -1,14 +1,53 @@
 # Next
 
 ## Current system
-Design docs review: done. The reviewer returned APPROVED in round 4, after 4 rounds of fixes
-(18, 13, 5 findings). Brief §2, §3, §4 and §6 changed in round 1 with the user's approval; later
-rounds changed only `docs/design/`, `CONTENT.md`, `LESSONS.md` and this file.
+Single-fight prototype (Proto_Combat), built as one system per the user's 2026-10-23 decisions:
+Classic Rock starter deck + Ribbon Mic vs Morning Zoo, every Proposed rule the fight touches built
+as its Proposed default and marked `// Proposed (<doc>.md)` in code.
+- Core: `unity/Assets/TurnTheDial/Core/` (fight loop, Reach/Drop/Flow/statuses, seeded RNG streams,
+  combat log, validator, rules text, sim runner).
+- Data: ScriptableObjects + exporter; content in `unity/Assets/TurnTheDial/Content/`.
+- Game: `unity/Assets/TurnTheDial/Scenes/Proto_Combat.unity` (plain uGUI, mouse/keyboard/gamepad).
+- Tests: 176 EditMode tests pass (`TurnTheDial.Core.Tests`, `TurnTheDial.Data.Tests`).
+- Sim: Unity menu Turn the Dial > Sim, report in `tools/sim/reports/`.
 
 ## Next step
-1. The user answers the open questions below (or accepts the proposals as written).
-2. If any answer changes a doc, the reviewer re-checks the design docs against the brief.
-3. Then pick the first build system (proposed: combat core, `docs/design/combat.md`).
+1. Done: the reviewer returned APPROVED in round 2 (round 1: 3 majors, 11 minors, all fixed or
+   queued below). Round 2 minors: README test name and cue-slot hint fixed; the doc keys for
+   findings 8, 11 and the ui.md keys wait on the questions below (LESSONS tunable rule not yet met
+   for `onAirWarningFlickerHz` and `logLinesShown`).
+2. The user answers the prototype's doc questions (below, "From the prototype").
+3. Then the next system. Done-checklist items still open from this prototype: card rewards and
+   rerolls, Production Room remaster, elites and bosses (passives, Monitor UI ghosts), the other
+   11 rivals and 2 formats as content, sim of every rival vs every deck, saves and fight snapshots,
+   gear and staff beyond Ribbon Mic, markets beyond tier 1, the booth art and desk-view layout.
+
+### From the prototype (unclear in the docs; builder choice pinned by a test, pending decision)
+- Cue timing: brief §2 lists Cue (step 4) after Program (step 3). Built: once you cue, you can't
+  play more cards that turn (marked `Proposed (combat.md, player phase order; pending user decision)`;
+  tooltip and controls text say "Cueing ends your plays this turn"). Confirm, or allow plays after
+  cueing.
+- Gear "card played" triggers: cards.md's effect order has no step for them. Built: after the card
+  reaches its pile (step 9), before the win/loss check (step 10). Test:
+  `PendingDecisionTests.CardPlayedGear_*`.
+- Simultaneous 0 (combat.md): a card that drops the rival to 0 and your listeners to 0 in one
+  resolution. Built: the listeners-0 loss is checked first. Test:
+  `PendingDecisionTests.SimultaneousZero_*`.
+- Monitor draw peek: how long the peek stays visible isn't stated. Built: a snapshot of the peeked
+  cards when the effect resolves, kept until end of turn. Test: `PendingDecisionTests.MonitorDraw_*`.
+- Loop + Air Horn (formats.md covers only an Air-Horned T5). Built: (a) an Air-Horned T1 after a T5
+  still wraps (the wrap checks the card's own tempo 1); (b) an Air-Horned T4 counts as 5, so a T1
+  after it wraps. Tests: `PendingDecisionTests.Loop_*`.
+- cards.md Fields: add `endOfTurnInHand` (an effect list that resolves at end-turn step 2 while the
+  card is in hand; Complaint Call's "lose 3") as Proposed. Brief §4 card anatomy has no such field.
+- save.md RNG streams: add the tooling-only `seed.next` stream (`SeedChain`: derives the prototype's
+  restart seed and the sim's seed list from the current seed) as Proposed. It's not a gameplay roll.
+- ui.md Tunable values: add `ui.onAirFlickerHz` (prototype uses 2, under the 3 flashes/second
+  photosensitivity limit) and a combat-log length key, e.g. `ui.logLinesShown` (prototype uses 200).
+  Both are prototype-only values in `UiConfig.asset` until the doc owns them.
+- ui.md: "C cues the hovered card when nothing is focused" can't occur, because focus is never
+  empty (focus is always visible). Built: C cues the card under the mouse if there is one, else the
+  focused card. Right-click also cues.
 
 ## Blocked on
 - The user's answers to the open questions below. Each doc's full list is under its own

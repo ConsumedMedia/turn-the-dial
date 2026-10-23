@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb83bedfc5059d4a97690128fab66bf, type: 3}
+  m_Name: BalanceConfig
+  m_EditorClassIdentifier: TurnTheDial.Data::TurnTheDial.Data.BalanceConfigAsset
+  turnsDaypart: 6
+  turnsPrimeTime: 7
+  turnsBoss: 8
+  airtimePerTurn: 3
+  drawPerTurn: 5
+  handLimit: 10
+  listenerConversionPercent: 10
+  exposedPercent: 150
+  deadAirSteps: 050000000a0000000f000000i
+  ratingsLossPenaltyPercent: 10
+  cueSlots: 1
+  flowCap: 10
+  flowCapLoop: 15
+  flowReachPerStackPercent: 10
+  flowRampGain: 1
+  flowStreakGain: 1
+  hypeDecayPerTurn: 1
+  cashStart: 50
+  requestTokensStart: 2
+  buzzStealBonusPercent: 50
+  burnoutPerStackPercent: 25
+  burnoutFloorPercent: 25
+  anthemReachPercent: 150
+  anthemLoyaltyPerTempo: 2
+  mailbagConversionPercent: 20

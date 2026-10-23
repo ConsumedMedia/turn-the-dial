@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcfa2c8a0c6763f4b8a2e99545d509bc, type: 3}
+  m_Name: ProtoCombatContent
+  m_EditorClassIdentifier: TurnTheDial.Data::TurnTheDial.Data.FightContent
+  balance: {fileID: 11400000, guid: 59da7ff0bfbf1a1448dc4f1a3cfc0200, type: 2}
+  format: {fileID: 11400000, guid: 9c3f093cff2964844bb371fde61cc2b1, type: 2}
+  rival: {fileID: 11400000, guid: 71c57a86fbf58a54a878b370db363950, type: 2}
+  cards:
+  - {fileID: 11400000, guid: c7528dffe18ba9d44a926d61f8cb2bb5, type: 2}
+  - {fileID: 11400000, guid: 5ae27ba4c42bef149a9a823fd53ec153, type: 2}
+  - {fileID: 11400000, guid: edbbf6098f6402c4da6a0299513ed7e5, type: 2}
+  - {fileID: 11400000, guid: 2bfd07ec341ebfd4b85eb5db1228b098, type: 2}
+  - {fileID: 11400000, guid: da96d56b98fdd4a4f91992b176a6bdea, type: 2}
+  - {fileID: 11400000, guid: 73bc8f18b5eeb94438bb94949eb987b7, type: 2}
+  - {fileID: 11400000, guid: e91bcdf1d1cf374489154cdcc58b9577, type: 2}

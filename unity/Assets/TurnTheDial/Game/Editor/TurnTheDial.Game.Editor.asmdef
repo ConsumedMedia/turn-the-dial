@@ -1,0 +1,23 @@
+{
+    "name": "TurnTheDial.Game.Editor",
+    "rootNamespace": "TurnTheDial.Game.Editor",
+    "references": [
+        "TurnTheDial.Core",
+        "TurnTheDial.Data",
+        "TurnTheDial.Game",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

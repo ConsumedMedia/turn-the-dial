@@ -24,3 +24,18 @@ One line per bug fix or correction: `- <what went wrong> → <the rule that prev
 - Cross-doc lists drifted (Buzz sources, where statuses are shown) → when a doc adds a source or display location, update every doc that lists them.
 - An edge case covered only one end of a cost modifier (Gridlock on 0-cost, not 3-cost) → edge cases for a modifier test both ends of the range it changes.
 - Formats, markets and achievements had no ids or used underscores → every data asset kind has dotted ids and a CONTENT.md section.
+- The default UI Navigate action binds W/A/S/D, so the prototype's debug keys (W win, S seed, D draw) also moved focus → check every new key against the UI module's bindings; the desk view strips W/A/S/D from Navigate (arrows, d-pad and stick still navigate).
+- A CanvasScaler set to MatchWidthOrHeight cut off the bottom of the 1280×800 layout in a wider window → the desk-view canvas uses Expand, so the whole reference layout is always on screen.
+- A test that compared a steal against the listener change on the last turn also counted the ratings-loss penalty → on the final turn, subtract the ratings-check penalty before asserting a steal amount.
+- A test expected a discarded card to stay discarded, but the next turn's reshuffle drew it back → assert discards from the log line of the step itself, not from pile contents after later draws.
+- A mouse couldn't cue a card: left click always played and cue only acted on the keyboard-focused card (reviewer) → every player action has a mouse path, a keyboard path and a gamepad path, each tested in play mode (cue: right-click a card, or C on the hovered card).
+- The color rule was applied only to the top-bar markers (reviewer) → every you-versus-rival readout carries its side's marker: a steady amber dot for you, a blinking teal diamond for the rival.
+- The Sim test wrote its report into tools/sim/reports/ on every test run (reviewer) → tests never write into the repo; they assert on the returned report string, and only the menu writes reports.
+- Builder choices the docs don't settle were labelled "Proposed (doc.md)" as if a doc proposed them → a choice no doc makes is marked "Pending user decision (doc.md: topic)", pinned by a test, and queued in NEXT.md.
+- The Monitor draw peek re-read the live draw pile, so a later draw changed what the peek showed → a peek is a snapshot taken when the effect resolves.
+- The Flow tooltip printed the balance cap, not the fight's cap (Loop is 15) → tooltips read the live fight value whenever one exists.
+- The combat log could only be scrolled with a mouse → every scrollable panel is focusable and scrolls with arrows / d-pad / stick and Page Up / Page Down, and focus can leave it in every direction.
+- Runtime binding overrides on the shared UI Navigate action outlived the scene → remove every runtime binding override in OnDestroy.
+- The on-air warning flickered at 3 Hz, the photosensitivity limit → flashing UI stays under 3 flashes per second.
+- A test expected listeners to reach 0 from a card's listener cost but forgot the card's own Reach converts to listeners first → a test that combines Reach and a listener loss counts the conversion (10% of post-Lock Reach) before the loss.
+- The reviewer flagged the cue-slot hint and sim README still naming old controls and an old test name after a fix → after renaming a control or test, grep for every string that mentions the old one.
