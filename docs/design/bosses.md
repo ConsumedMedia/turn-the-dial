@@ -82,7 +82,7 @@ stops counting. The countdown shows from turn 1.
 - The Flip: Loop's "T1 after T5" rule becomes "T5 after T1" counts as falling? Proposed: Loop's
   special case mirrors (T5 right after T1 counts as a falling ramp).
 - The Flip with Air Horn: Air Horn no longer changes tempo ("your next Song counts as a rising
-  ramp", user 2026-10-23). **Proposed:** after the flip, the Air-Horned Song still counts as a ramp
+  ramp", user 2026-10-23). **Decided** (user, 2026-10-23): after the flip, the Air-Horned Song still counts as a ramp
   (the falling ramp the Flip rewards), +1 Flow.
 - Flow earned before turn 5 is kept at the flip. **Proposed.**
 - Algorithm on a Drop Song of the targeted genre: ×0.5 multiplies the whole Drop number (base + Hype
@@ -97,7 +97,7 @@ stops counting. The countdown shows from turn 1.
   gives no penalty that turn. The alternative is consistent with Recommended for You's tie rule
   (Decided by the user, commit 1d38661: a tie gives no extra penalty), and this doc recommends it.
   The user decides.
-- Loop and Air Horn under The Flip (proposals above).
+- Loop under The Flip (proposal above). Air Horn under The Flip is Decided.
 - Satellite Feed size (24 at book 1) — tune in the sim against Classic Rock's Loyalty. It exceeds the
   brief's book 1 Big Segment range (max 18); Proposed: allowed as a boss rule (see above).
 - Flow earned before turn 5 is kept at the flip. Proposed: yes.

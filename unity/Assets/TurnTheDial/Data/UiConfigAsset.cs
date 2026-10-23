@@ -8,12 +8,14 @@ namespace TurnTheDial.Data
     public sealed class UiConfigAsset : ScriptableObject
     {
         [Tooltip("ui.rivalBlinkHz (Proposed, ui.md)")] public float rivalBlinkHz;
+        [Tooltip("ui.rivalPulseHz: the rival's slow, smooth pulse under reduce motion (Decided, user, 2026-10-23)")]
+        public float rivalPulseHz;
         [Tooltip("ui.minTextPx at 1280x800")] public int minTextPx;
         [Tooltip("ui.logLines: combat log lines kept on the clipboard (Decided, user, 2026-10-23)")]
         [FormerlySerializedAs("logLinesShown")] public int logLines;
         [Tooltip("ui.onAirFlickerHz: on-air warning flicker, under 3 flashes/second (Decided, user, 2026-10-23)")]
         [FormerlySerializedAs("onAirWarningFlickerHz")] public float onAirFlickerHz;
-        [Tooltip("Reduce motion (brief §10): turns off the on-air flicker; the warning still dims and the rival still blinks. Settings toggle later; default off.")]
+        [Tooltip("Reduce motion (brief §10): turns off the on-air flicker (the warning still dims) and turns the rival's blink into a slow pulse. Settings toggle later; default off.")]
         public bool reduceMotion;
     }
 }

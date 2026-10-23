@@ -1020,7 +1020,7 @@ namespace TurnTheDial.Core.Combat
         {
             bool onGenre = _format.Genre != Genre.None && c.Genre == _format.Genre;
             // Decided (user, 2026-10-23), flow.md: Air Horn makes the next Song count as a rising ramp,
-            // whatever its tempo; it changes no tempo. Proposed (flow.md): it also applies after an Ad
+            // whatever its tempo; it changes no tempo. It also applies after an Ad
             // and to the first Song of a daypart ("counts as a rising ramp" overrides "no last song").
             bool horn = PendingRamp;
             PendingRamp = false;
@@ -1118,7 +1118,7 @@ namespace TurnTheDial.Core.Combat
                     break;
                 case EffectKind.MonitorIntents:
                     // Decided (user, 2026-10-23), brief §4: the peek rolls forward for the rest of the
-                    // daypart (always N ahead). Proposed (cards.md): two Monitor-intent effects use the larger N.
+                    // daypart (always N ahead); two Monitor-intent effects use the larger N (cards.md).
                     MonitorIntentCount = Math.Max(MonitorIntentCount, e.Amount);
                     Add(source + ": Monitor " + NumberFormat.Int(e.Amount) + ", you see the rival's next " + NumberFormat.Int(MonitorIntentCount)
                         + " intents for the rest of the daypart.");
@@ -1136,7 +1136,7 @@ namespace TurnTheDial.Core.Combat
                 }
 
                 case EffectKind.NextSongCountsAsRamp:
-                    // Proposed (flow.md): two Air Horns don't stack; the next Song counts as one ramp and consumes both.
+                    // Decided (user, 2026-10-23), flow.md: two Air Horns don't stack; the next Song counts as one ramp and consumes both.
                     Add(source + (PendingRamp ? ": your next Song already counts as a rising ramp (no extra effect)." : ": your next Song counts as a rising ramp."));
                     PendingRamp = true;
                     break;

@@ -159,7 +159,7 @@ namespace TurnTheDial.Core.Tests
         [Test]
         public void TwoAirHorns_DoNotStack_OneRamp_BothConsumed()
         {
-            // Proposed (flow.md).
+            // Decided (user, 2026-10-23), flow.md.
             Fight f = Started(format: HipHopHeat());
             f.TestSetLastSong(RooftopJam()); // T4
             Play(f, AirHorn());
@@ -174,7 +174,7 @@ namespace TurnTheDial.Core.Tests
         [Test]
         public void AirHorn_SurvivesAnAd_NextSongStillCountsAsRamp()
         {
-            // Proposed (flow.md): the ramp applies even though the Ad cleared last song.
+            // Decided (user, 2026-10-23), flow.md: the ramp applies even though the Ad cleared last song.
             Fight f = Started(format: HipHopHeat());
             f.TestSetLastSong(BlockParty());
             Play(f, AirHorn());
@@ -188,7 +188,7 @@ namespace TurnTheDial.Core.Tests
         [Test]
         public void AirHorn_FirstSongOfDaypart_CountsAsRamp()
         {
-            // Proposed (flow.md): "counts as a rising ramp" overrides "no last song".
+            // Decided (user, 2026-10-23), flow.md: "counts as a rising ramp" overrides "no last song".
             Fight f = Started(format: HipHopHeat());
             Play(f, AirHorn());
             Play(f, BlockParty());

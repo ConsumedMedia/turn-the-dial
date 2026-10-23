@@ -110,7 +110,7 @@ effects never boost its own Reach, matching "a song never benefits from the Flow
 - A card cued this turn can't be played this turn (`combat.md`).
 - Monitor on draw pile: shown once when the card resolves (and in this turn's log); not kept or
   refreshed as the pile changes.
-- Two Monitor-intent effects in one daypart: the larger N applies; they don't add. **Proposed.**
+- Two Monitor-intent effects in one daypart: the larger N applies; they don't add. **Decided** (user, 2026-10-23).
 - Hold card with Unplayable (Static): stays in hand — avoid in content.
 - Monitor N beyond the remaining turns shows only the remaining intents.
 - Monitor on draw pile with fewer than N cards shows all of them; no reshuffle.
@@ -130,7 +130,6 @@ effects never boost its own Reach, matching "a song never benefits from the Flow
 - Pop genre: which format's streak does a Pop song count for? Proposed: none in v1 (shared filler).
 - Effect order steps 5–6 (other base numbers and the effects list resolve after the card's Reach).
   Proposed above.
-- Two Monitor-intent effects in one daypart: the larger N applies. Proposed above.
 - No duplicates within one card offer. Proposed: yes.
 - Rarity fallback when a rarity is empty (rare → uncommon → common). Proposed above.
 

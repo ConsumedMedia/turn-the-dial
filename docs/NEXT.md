@@ -27,9 +27,10 @@ as its Proposed default and marked `// Proposed (<doc>.md)` in code.
 ### From the prototype
 All prototype questions were answered by the user on 2026-10-23 and built (cue, simultaneous 0,
 card-played trigger order, Monitor, Air Horn, `triggers`, debug seed, `ui.onAirFlickerHz`,
-`ui.logLines`, reduce motion, F5-F9 debug keys). Still Proposed in the docs and built as proposed:
-two Monitor-intent effects use the larger N (cards.md); Air Horn after an Ad, on the first Song of a
-daypart, and two Air Horns not stacking (flow.md); reduce motion leaves the rival's blink on (ui.md).
+`ui.logLines`, reduce motion, F5-F9 debug keys). The five rules first built as Proposed (Air Horn
+after an Ad, on the first Song, two Air Horns not stacking; two Monitor-intent effects use the larger
+N; Air Horn under The Flip) are Decided by the user (2026-10-23), as is the rival's slow pulse under
+reduce motion (`ui.rivalPulseHz` 1.0) and editor/development-only debug keys.
 
 ## Blocked on
 - The user's answers to the open questions below. Each doc's full list is under its own
@@ -65,7 +66,7 @@ Most important first. Full lists: each doc's Open questions section.
   boss rule ("giant"); otherwise a brief change or drop it to 18.
 - Algorithm ties: Proposed default is "both tied genres get −50%". Alternative: no penalty on a tie,
   consistent with Recommended for You's Decided tie rule; recommended. The user decides.
-- Loop and Air Horn under The Flip; boss names.
+- Loop under The Flip; boss names.
 
 **save.md**
 - RNG stream assignments not set by the user: gear offers (`rng.rewards`), shop staff (`rng.shop`),

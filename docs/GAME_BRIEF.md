@@ -311,7 +311,7 @@ Two kinds of view. **Fights use the desk view:** a fixed seat in the booth, wher
 | Remote Broadcast | Van at the location. Pick 1 of 2 gear. |
 | Deck / Collection | Crate browser. Filter by type, genre and tempo; shows remaster previews. |
 | Run end | The "ratings book" report: books reached, fights won, Ratings Points earned, unlocks. |
-| Settings | Game speed toggle, text size, controller remap, screen shake, reduce motion (turns off the on-air light's flicker), colorblind preview, audio mix. |
+| Settings | Game speed toggle, text size, controller remap, screen shake, reduce motion (turns off the on-air light's flicker; the rival's blink becomes a slow pulse), colorblind preview, audio mix. |
 
 ---
 

@@ -26,6 +26,21 @@ namespace TurnTheDial.Data.Tests
         }
 
         [Test]
+        public void UiConfig_MatchesUiMdTunables()
+        {
+            const string path = "Assets/TurnTheDial/Content/UI/UiConfig.asset";
+            UiConfigAsset ui = AssetDatabase.LoadAssetAtPath<UiConfigAsset>(path);
+            Assert.IsNotNull(ui, path);
+            Assert.AreEqual(2f, ui.onAirFlickerHz, "ui.onAirFlickerHz");
+            Assert.Less(ui.onAirFlickerHz, 3f, "under 3 flashes per second");
+            Assert.AreEqual(50, ui.logLines, "ui.logLines");
+            Assert.AreEqual(1f, ui.rivalPulseHz, "ui.rivalPulseHz");
+            Assert.AreEqual(1f, ui.rivalBlinkHz, "ui.rivalBlinkHz");
+            Assert.AreEqual(12, ui.minTextPx, "ui.minTextPx");
+            Assert.IsFalse(ui.reduceMotion, "reduce motion defaults off");
+        }
+
+        [Test]
         public void Balance_MatchesDesignDocStartingValues()
         {
             BalanceConfig b = Content().balance.ToCore();

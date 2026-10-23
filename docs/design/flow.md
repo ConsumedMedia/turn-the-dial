@@ -81,11 +81,11 @@ Drop N is per card (`keywords` data); Anthem, Exposed and boss factors live in `
 ## Edge cases
 - Song played into its own Flow gain: the gain applies after its Reach (tested).
 - Air Horn played, then an Ad, then a Song: the Song still counts as a rising ramp, even though the
-  Ad cleared last song. The bonus is consumed by that Song. **Proposed.**
-- Air Horn before the first Song of a daypart: that Song counts as a ramp (+1 Flow). **Proposed**
+  Ad cleared last song. The bonus is consumed by that Song. **Decided** (user, 2026-10-23).
+- Air Horn before the first Song of a daypart: that Song counts as a ramp (+1 Flow). **Decided** (user, 2026-10-23)
   ("counts as a rising ramp" overrides "no last song").
 - Two Air Horns before one Song: no extra effect; the next Song counts as one ramp and consumes both.
-  **Proposed.**
+  **Decided** (user, 2026-10-23).
 - Loop: tempo 5 → tempo 1 is a ramp; tempo 5 → tempo 2 is not.
 - Flow at cap gaining +2: stays at cap.
 - Drop with Flow 0: deals base (+Hype if Song).
@@ -106,8 +106,6 @@ Drop N is per card (`keywords` data); Anthem, Exposed and boss factors live in `
 - Hype decrement under Mailbag: does a DJ Break played from the cue slot count? Proposed: yes.
 - Hype has no cap. Proposed above.
 - Genre streak count for Playlist Bot (a single on-genre song = 1). Proposed above.
-- Air Horn: the bonus survives an Ad, applies to the first Song of a daypart, and two Air Horns
-  don't stack. Proposed above.
 
 ## Done checklist
 - [ ] Ramp, streak, first-song, lower-tempo and cap rules tested

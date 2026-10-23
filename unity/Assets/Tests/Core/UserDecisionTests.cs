@@ -111,7 +111,7 @@ namespace TurnTheDial.Core.Tests
             Assert.AreEqual(IntentKind.Steal, t2[1].Kind);
         }
 
-        // Proposed (cards.md): two Monitor-intent effects use the larger N; they don't add.
+        // Decided (user, 2026-10-23), cards.md: two Monitor-intent effects use the larger N; they don't add.
         [Test]
         public void MonitorIntents_TwoEffects_LargerNApplies()
         {

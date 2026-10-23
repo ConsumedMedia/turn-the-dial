@@ -50,3 +50,4 @@ One line per bug fix or correction: `- <what went wrong> → <the rule that prev
 - UI timing values (flicker, log length) lived only in a config asset → every UI tunable gets a ui.md key; flicker stays under 3 Hz and reduce motion turns it off (ui.md, user 2026-10-23).
 - Debug keys on W/S/D clashed with WASD navigation → debug keys live on F5–F9, never on keys any input map uses.
 - A LESSONS rule (strip W/A/S/D from Navigate) outlived the decision that replaced it → when a decision changes a rule, rewrite the older LESSONS line in place so the two never contradict.
+- Reduce motion only stopped the on-air flicker and left the rival's sharp blink → under reduce motion, motion cues the color rule needs soften to a slow pulse (`ui.rivalPulseHz`) instead of vanishing (ui.md, user 2026-10-23).
