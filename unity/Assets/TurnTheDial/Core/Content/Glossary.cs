@@ -43,7 +43,7 @@ namespace TurnTheDial.Core.Content
                 case Keyword.Hold:
                     return "Hold: stays in hand at end of turn.";
                 case Keyword.Monitor:
-                    return "Monitor N: see the rival's next N intents this daypart, or the top N cards of your draw pile, as the card states.";
+                    return "Monitor N: on intents, you see the rival's next N intents for the rest of the daypart (always N ahead). On your draw pile, a one-time look at the top N cards.";
                 case Keyword.Pulled:
                     return "Pulled: removed for the rest of the daypart once played.";
                 case Keyword.Sticky:
@@ -93,7 +93,7 @@ namespace TurnTheDial.Core.Content
                     return "Dead Air: ending a turn without an On Air card loses " + StepsText(b.DeadAirSteps)
                         + " listeners (first, second, each after). Ignores Loyalty. Flow drops to 0.";
                 case Term.CueSlot:
-                    return "Cue slot: once per turn, move a card from your hand here. It stays between turns and can be played from here. Cueing ends your plays this turn.";
+                    return "Cue slot: once per turn, any time during your turn, move a card from your hand here for free (only if the slot is empty). A card cued this turn can be played from here next turn; it stays between turns.";
                 case Term.DrawPile:
                     return "Draw pile: when it runs out, the discard pile is shuffled into it.";
                 case Term.DiscardPile:

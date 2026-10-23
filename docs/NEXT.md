@@ -8,46 +8,28 @@ as its Proposed default and marked `// Proposed (<doc>.md)` in code.
   combat log, validator, rules text, sim runner).
 - Data: ScriptableObjects + exporter; content in `unity/Assets/TurnTheDial/Content/`.
 - Game: `unity/Assets/TurnTheDial/Scenes/Proto_Combat.unity` (plain uGUI, mouse/keyboard/gamepad).
-- Tests: 176 EditMode tests pass (`TurnTheDial.Core.Tests`, `TurnTheDial.Data.Tests`).
+- Tests: 187 EditMode tests pass (`TurnTheDial.Core.Tests`, `TurnTheDial.Data.Tests`).
 - Sim: Unity menu Turn the Dial > Sim, report in `tools/sim/reports/`.
 
 ## Next step
 1. Done: the reviewer returned APPROVED in round 2 (round 1: 3 majors, 11 minors, all fixed or
    queued below). Round 2 minors: README test name and cue-slot hint fixed; the doc keys for
-   findings 8, 11 and the ui.md keys wait on the questions below (LESSONS tunable rule not yet met
-   for `onAirWarningFlickerHz` and `logLinesShown`).
-2. The user answers the prototype's doc questions (below, "From the prototype").
+   findings 8, 11 and the ui.md keys were then answered by the user (2026-10-23).
+2. Done: the user's 2026-10-23 answers are built. `UiConfig` fields are now `onAirFlickerHz` (2) and
+   `logLines` (50), matching ui.md's keys, plus `reduceMotion` (default off). The reviewer
+   returned APPROVED; its 3 doc minors are fixed. Still to do: play the scene once with a real
+   mouse while the editor has focus (this round drove the mouse through the scene's pointer handlers).
 3. Then the next system. Done-checklist items still open from this prototype: card rewards and
    rerolls, Production Room remaster, elites and bosses (passives, Monitor UI ghosts), the other
    11 rivals and 2 formats as content, sim of every rival vs every deck, saves and fight snapshots,
    gear and staff beyond Ribbon Mic, markets beyond tier 1, the booth art and desk-view layout.
 
-### From the prototype (unclear in the docs; builder choice pinned by a test, pending decision)
-- Cue timing: brief §2 lists Cue (step 4) after Program (step 3). Built: once you cue, you can't
-  play more cards that turn (marked `Proposed (combat.md, player phase order; pending user decision)`;
-  tooltip and controls text say "Cueing ends your plays this turn"). Confirm, or allow plays after
-  cueing.
-- Gear "card played" triggers: cards.md's effect order has no step for them. Built: after the card
-  reaches its pile (step 9), before the win/loss check (step 10). Test:
-  `PendingDecisionTests.CardPlayedGear_*`.
-- Simultaneous 0 (combat.md): a card that drops the rival to 0 and your listeners to 0 in one
-  resolution. Built: the listeners-0 loss is checked first. Test:
-  `PendingDecisionTests.SimultaneousZero_*`.
-- Monitor draw peek: how long the peek stays visible isn't stated. Built: a snapshot of the peeked
-  cards when the effect resolves, kept until end of turn. Test: `PendingDecisionTests.MonitorDraw_*`.
-- Loop + Air Horn (formats.md covers only an Air-Horned T5). Built: (a) an Air-Horned T1 after a T5
-  still wraps (the wrap checks the card's own tempo 1); (b) an Air-Horned T4 counts as 5, so a T1
-  after it wraps. Tests: `PendingDecisionTests.Loop_*`.
-- cards.md Fields: add `endOfTurnInHand` (an effect list that resolves at end-turn step 2 while the
-  card is in hand; Complaint Call's "lose 3") as Proposed. Brief §4 card anatomy has no such field.
-- save.md RNG streams: add the tooling-only `seed.next` stream (`SeedChain`: derives the prototype's
-  restart seed and the sim's seed list from the current seed) as Proposed. It's not a gameplay roll.
-- ui.md Tunable values: add `ui.onAirFlickerHz` (prototype uses 2, under the 3 flashes/second
-  photosensitivity limit) and a combat-log length key, e.g. `ui.logLinesShown` (prototype uses 200).
-  Both are prototype-only values in `UiConfig.asset` until the doc owns them.
-- ui.md: "C cues the hovered card when nothing is focused" can't occur, because focus is never
-  empty (focus is always visible). Built: C cues the card under the mouse if there is one, else the
-  focused card. Right-click also cues.
+### From the prototype
+All prototype questions were answered by the user on 2026-10-23 and built (cue, simultaneous 0,
+card-played trigger order, Monitor, Air Horn, `triggers`, debug seed, `ui.onAirFlickerHz`,
+`ui.logLines`, reduce motion, F5-F9 debug keys). Still Proposed in the docs and built as proposed:
+two Monitor-intent effects use the larger N (cards.md); Air Horn after an Ad, on the first Song of a
+daypart, and two Air Horns not stacking (flow.md); reduce motion leaves the rival's blink on (ui.md).
 
 ## Blocked on
 - The user's answers to the open questions below. Each doc's full list is under its own
@@ -95,7 +77,7 @@ Most important first. Full lists: each doc's Open questions section.
   reward Cash roll distribution, skipping a Remote Broadcast, 50 Cash when the gear pool is empty.
 - Gear never offered twice; cue-slot cards count for "first X each turn".
 - Declining a hire; let-go staff never return.
-- Cash never negative; cued Complaint Call doesn't trigger; Interference position in the draw pile.
+- Cash never negative; Interference position in the draw pile.
 - Prime Time wins and book 1 count for Ratings Points.
 - College Town +10% includes Prime Time and bosses.
 - Remaster carry-overs (unmentioned fields keep base values); Mail Sack on any fight win.

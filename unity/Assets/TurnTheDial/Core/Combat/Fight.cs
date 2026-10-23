@@ -32,10 +32,9 @@ namespace TurnTheDial.Core.Combat
         private readonly List<BurnoutEntry> _burnout = new List<BurnoutEntry>();
         private readonly List<GearData> _gear = new List<GearData>();
         private readonly List<bool> _gearFiredThisTurn = new List<bool>();
-        private readonly List<CardInstance> _monitoredDraw = new List<CardInstance>();
 
         private int _nextUid = 1;
-        private int _lastSongRampTempo;
+        private int _cuedThisTurnUid = -1;
 
         public Fight(FightSetup setup)
         {
@@ -82,6 +81,8 @@ namespace TurnTheDial.Core.Combat
         /// <summary>old, new, reason</summary>
         public event Action<int, int, string> FlowChanged;
         public event Action<FightOutcome> FightEnded;
+        /// <summary>A Monitor draw-pile peek: a one-time look, raised when the effect resolves (not kept).</summary>
+        public event Action<IReadOnlyList<CardInstance>> DrawMonitored;
         /// <summary>Raised after every command finishes.</summary>
         public event Action StateChanged;
 
@@ -112,9 +113,11 @@ namespace TurnTheDial.Core.Combat
         public int FlowCap { get; private set; }
         public int Hype { get; private set; }
         public int DeadAirCount { get; private set; }
-        public int PendingTempoBonus { get; private set; }
+        /// <summary>Air Horn: the next Song counts as a rising ramp (a flag; two Air Horns don't stack).</summary>
+        public bool PendingRamp { get; private set; }
+
+        /// <summary>Monitor-intent depth N for the rest of the daypart (rolls forward: always N ahead).</summary>
         public int MonitorIntentCount { get; private set; }
-        public int MonitorDrawCount { get; private set; }
 
         public int RivalAudience { get; private set; }
         public int RivalStartingAudience { get; }
@@ -278,6 +281,7 @@ namespace TurnTheDial.Core.Combat
             AnthemUsedThisTurn = false;
             DjBreakPlayedThisTurn = false;
             CuedThisTurn = false;
+            _cuedThisTurnUid = -1;
             for (int i = 0; i < _gearFiredThisTurn.Count; i++)
             {
                 _gearFiredThisTurn[i] = false;
@@ -324,11 +328,10 @@ namespace TurnTheDial.Core.Combat
                 return false;
             }
 
-            if (CuedThisTurn)
+            if (inst.Uid == _cuedThisTurnUid)
             {
-                // Proposed (combat.md, player phase order; pending user decision): cueing ends your plays this turn.
-                // Brief §2 player phase: Program (step 3) comes before Cue (step 4).
-                reason = "You cued this turn, so programming is over. End the turn.";
+                // Decided (user, 2026-10-23), brief §2: a card cued this turn can't be played until your next turn.
+                reason = inst.Card.Name + " was cued this turn; it can be played from the cue slot next turn.";
                 return false;
             }
 
@@ -436,15 +439,15 @@ namespace TurnTheDial.Core.Combat
                 _discard.Add(inst);
             }
 
-            // Card-played gear. Pending user decision (cards.md: effect order has no gear step): fires
-            // after the card reaches its pile (step 9), before the win/loss check (step 10).
+            // 10. "Card played" gear (then staff) triggers after the card has fully resolved and reached
+            // its pile, before the win/loss check. Decided (user, 2026-10-23), cards.md effect order.
             // Proposed (gear.md): a card played from the cue slot counts for "first X each turn".
             FireGear(GearTrigger.CardPlayed, c);
             FireGear(GearTrigger.FirstCardOfTypeEachTurn, c);
 
             CardPlayed?.Invoke(inst);
 
-            // 10. Win/loss check (rival at 0 mid-card: the card finishes, then you win).
+            // 11. Win/loss check (rival at 0 mid-card: the card finishes, then you win).
             CheckEnd();
             Changed();
             return CommandResult.Success;
@@ -456,6 +459,14 @@ namespace TurnTheDial.Core.Combat
             if (Phase != FightPhase.Player)
             {
                 reason = Phase == FightPhase.Over ? "The fight is over." : "It's not your turn.";
+                return false;
+            }
+
+            // Decided (user, 2026-10-23), brief §2: cue is free, once per turn, any time during Program,
+            // only into an empty slot. It doesn't end your plays.
+            if (CuedThisTurn)
+            {
+                reason = "You already cued a card this turn (once per turn).";
                 return false;
             }
 
@@ -486,7 +497,8 @@ namespace TurnTheDial.Core.Combat
             _hand.Remove(inst);
             _cue.Add(inst);
             CuedThisTurn = true;
-            Add("Cued " + inst.Card.DisplayName + ". It stays in the cue slot and can be played from there.");
+            _cuedThisTurnUid = inst.Uid;
+            Add("Cued " + inst.Card.DisplayName + " (free). It stays in the cue slot and can be played from there next turn.");
             Changed();
             return CommandResult.Success;
         }
@@ -512,16 +524,21 @@ namespace TurnTheDial.Core.Combat
                 if (CheckEnd()) { Changed(); return CommandResult.Success; }
             }
 
-            // 2. End-of-turn card effects (cards in hand; a cued card isn't in hand).
-            // Proposed (statuses.md): a cued Complaint Call doesn't trigger.
+            // 2. End-of-turn card effects: "end of turn, while in hand" triggers (brief §4 triggers).
+            // Decided (user, 2026-10-23), statuses.md: a cued Complaint Call isn't in hand, so it doesn't trigger.
             var handNow = new List<CardInstance>(_hand);
             for (int i = 0; i < handNow.Count; i++)
             {
                 CardData c = handNow[i].Card;
-                for (int e = 0; e < c.EndOfTurnInHand.Count; e++)
+                for (int t = 0; t < c.Triggers.Count; t++)
                 {
-                    ApplyEffect(c.EndOfTurnInHand[e], c.DisplayName + " in hand at end of turn");
-                    if (CheckEnd()) { Changed(); return CommandResult.Success; }
+                    CardTrigger trigger = c.Triggers[t];
+                    if (trigger.Kind != CardTriggerKind.EndOfTurnInHand) continue;
+                    for (int e = 0; e < trigger.Effects.Count; e++)
+                    {
+                        ApplyEffect(trigger.Effects[e], c.DisplayName + " in hand at end of turn");
+                        if (CheckEnd()) { Changed(); return CommandResult.Success; }
+                    }
                 }
             }
 
@@ -552,8 +569,6 @@ namespace TurnTheDial.Core.Combat
             }
 
             Airtime = 0;
-            MonitorDrawCount = 0;
-            _monitoredDraw.Clear();
             if (CheckEnd()) { Changed(); return CommandResult.Success; }
 
             // 4. Hype decay (Mailbag exception).
@@ -655,14 +670,8 @@ namespace TurnTheDial.Core.Combat
             return list;
         }
 
-        /// <summary>
-        /// The cards a Monitor draw-pile peek showed, as they were when the effect resolved. Pending
-        /// user decision (cards.md: how long a peek stays visible): kept until end of turn.
-        /// </summary>
-        public IReadOnlyList<CardInstance> MonitoredDraw => _monitoredDraw;
-
         /// <summary>Monitor on the draw pile: the top N cards, or all of them if fewer; no reshuffle.</summary>
-        public List<CardInstance> PeekDraw(int count)
+        private List<CardInstance> PeekDraw(int count)
         {
             var list = new List<CardInstance>();
             for (int i = 0; i < count && i < _draw.Count; i++)
@@ -1009,55 +1018,61 @@ namespace TurnTheDial.Core.Combat
 
         private void UpdateFlowFromSong(CardData c)
         {
-            int tempo = c.Tempo + PendingTempoBonus;
-            if (PendingTempoBonus > 0)
+            bool onGenre = _format.Genre != Genre.None && c.Genre == _format.Genre;
+            // Decided (user, 2026-10-23), flow.md: Air Horn makes the next Song count as a rising ramp,
+            // whatever its tempo; it changes no tempo. Proposed (flow.md): it also applies after an Ad
+            // and to the first Song of a daypart ("counts as a rising ramp" overrides "no last song").
+            bool horn = PendingRamp;
+            PendingRamp = false;
+            var reasons = new List<string>();
+            int gain = 0;
+            bool ramp = false;
+            if (horn)
             {
-                Add(c.DisplayName + " counts as tempo " + NumberFormat.Int(tempo) + " for the ramp (+" + NumberFormat.Int(PendingTempoBonus) + " tempo bonus used).");
-                PendingTempoBonus = 0;
+                ramp = true;
+                reasons.Add("Air Horn: counts as a rising ramp");
+            }
+            else if (LastSong != null)
+            {
+                if (c.Tempo > LastSong.Tempo)
+                {
+                    ramp = true;
+                    reasons.Add("tempo ramp T" + NumberFormat.Int(LastSong.Tempo) + " to T" + NumberFormat.Int(c.Tempo));
+                }
+                else if (_format.Signature == Signature.Loop && LastSong.Tempo == CardRules.TempoMax && c.Tempo == CardRules.TempoMin)
+                {
+                    // Loop (brief §5): T1 right after T5 ramps. Decided (user, 2026-10-23), formats.md:
+                    // the wrap reads the real tempos (Air Horn changes none).
+                    ramp = true;
+                    reasons.Add("tempo ramp T5 to T1 (Loop)");
+                }
             }
 
-            bool onGenre = _format.Genre != Genre.None && c.Genre == _format.Genre;
-            if (LastSong == null)
+            if (ramp) gain += _b.FlowRampGain;
+
+            bool streak = LastSong != null && onGenre && LastSong.Genre == _format.Genre;
+            if (streak)
+            {
+                gain += _b.FlowStreakGain;
+                reasons.Add("genre streak (" + CardTextGenerator.GenreName(_format.Genre) + ")");
+            }
+
+            if (gain > 0)
+            {
+                SetFlow(Flow + gain, c.DisplayName + ": " + string.Join(" + ", reasons));
+            }
+            else if (LastSong == null)
             {
                 Add(c.DisplayName + " has no last song to follow: no Flow gain (Flow " + NumberFormat.Int(Flow) + ").");
             }
             else
             {
-                bool ramp = tempo > _lastSongRampTempo;
-                // Loop (brief §5): T1 right after T5 ramps. Proposed (formats.md): an Air-Horned T5
-                // counts as 6 and still wraps. Pending user decision (formats.md: Loop + Air Horn):
-                // the wrap checks the new song's own tempo 1 (an Air-Horned T1 still wraps) against the
-                // last song's ramp tempo (an Air-Horned T4 counted as 5 lets a T1 wrap).
-                bool loopWrap = _format.Signature == Signature.Loop && _lastSongRampTempo >= CardRules.TempoMax && c.Tempo == CardRules.TempoMin;
-                bool streak = onGenre && LastSong.Genre == _format.Genre;
-                int gain = 0;
-                var reasons = new List<string>();
-                if (ramp || loopWrap)
-                {
-                    gain += _b.FlowRampGain;
-                    reasons.Add("tempo ramp T" + NumberFormat.Int(_lastSongRampTempo) + " to T" + NumberFormat.Int(tempo) + (loopWrap && !ramp ? " (Loop)" : ""));
-                }
-
-                if (streak)
-                {
-                    gain += _b.FlowStreakGain;
-                    reasons.Add("genre streak (" + CardTextGenerator.GenreName(_format.Genre) + ")");
-                }
-
-                if (gain > 0)
-                {
-                    SetFlow(Flow + gain, c.DisplayName + ": " + string.Join(" + ", reasons));
-                }
-                else
-                {
-                    Add(c.DisplayName + ": no ramp (T" + NumberFormat.Int(tempo) + " is not above T" + NumberFormat.Int(_lastSongRampTempo)
-                        + ")" + (onGenre ? "" : ", no genre streak") + ". Flow stays " + NumberFormat.Int(Flow) + ".");
-                }
+                Add(c.DisplayName + ": no ramp (T" + NumberFormat.Int(c.Tempo) + " is not above T" + NumberFormat.Int(LastSong.Tempo)
+                    + ")" + (onGenre ? "" : ", no genre streak") + ". Flow stays " + NumberFormat.Int(Flow) + ".");
             }
 
             GenreStreakCount = onGenre ? GenreStreakCount + 1 : 0;
             LastSong = c;
-            _lastSongRampTempo = tempo;
         }
 
         private void SetFlow(int value, string reason)
@@ -1102,26 +1117,28 @@ namespace TurnTheDial.Core.Combat
                     LoseListeners(e.Amount, source);
                     break;
                 case EffectKind.MonitorIntents:
+                    // Decided (user, 2026-10-23), brief §4: the peek rolls forward for the rest of the
+                    // daypart (always N ahead). Proposed (cards.md): two Monitor-intent effects use the larger N.
                     MonitorIntentCount = Math.Max(MonitorIntentCount, e.Amount);
-                    Add(source + ": Monitor " + NumberFormat.Int(e.Amount) + ", you see the rival's next " + NumberFormat.Int(e.Amount) + " intents this daypart.");
+                    Add(source + ": Monitor " + NumberFormat.Int(e.Amount) + ", you see the rival's next " + NumberFormat.Int(MonitorIntentCount)
+                        + " intents for the rest of the daypart.");
                     break;
                 case EffectKind.MonitorDraw:
                 {
-                    MonitorDrawCount = Math.Max(MonitorDrawCount, e.Amount);
+                    // Decided (user, 2026-10-23), brief §4: a one-time look, shown when it resolves and in
+                    // the log; not kept or refreshed.
                     List<CardInstance> top = PeekDraw(e.Amount);
-                    _monitoredDraw.Clear();
-                    _monitoredDraw.AddRange(top);
                     var names = new List<string>();
                     for (int i = 0; i < top.Count; i++) names.Add(top[i].Card.DisplayName);
                     Add(source + ": Monitor " + NumberFormat.Int(e.Amount) + ", top of your draw pile: " + (names.Count > 0 ? string.Join(", ", names) : "(empty)") + ".");
+                    DrawMonitored?.Invoke(top);
                     break;
                 }
 
-                case EffectKind.NextSongTempoBonus:
-                    // Proposed (flow.md): bonuses stack (two Air Horns = +2) and survive an Ad;
-                    // the next Song consumes them.
-                    PendingTempoBonus += e.Amount;
-                    Add(source + ": your next Song counts as +" + NumberFormat.Int(PendingTempoBonus) + " tempo for the ramp.");
+                case EffectKind.NextSongCountsAsRamp:
+                    // Proposed (flow.md): two Air Horns don't stack; the next Song counts as one ramp and consumes both.
+                    Add(source + (PendingRamp ? ": your next Song already counts as a rising ramp (no extra effect)." : ": your next Song counts as a rising ramp."));
+                    PendingRamp = true;
                     break;
                 case EffectKind.RaiseFlowCap:
                     FlowCap += e.Amount;
@@ -1356,8 +1373,17 @@ namespace TurnTheDial.Core.Combat
         private bool CheckEnd()
         {
             if (Phase == FightPhase.Over) return true;
-            // Pending user decision (combat.md: simultaneous 0): if one card drops both your listeners
-            // and the rival's audience to 0, the loss is checked first.
+            // Decided (user, 2026-10-23), brief §2: both hit 0 from the same card = you win the fight and
+            // your listeners are set to 1. Only your own card can drop the rival's audience, so a
+            // simultaneous 0 always comes from one card.
+            if (RivalAudience <= 0 && Listeners <= 0)
+            {
+                Listeners = 1;
+                Add("Both hit 0 from the same card: you win the daypart, and your listeners are set to 1.");
+                End(FightOutcome.WonAudienceZero, false);
+                return true;
+            }
+
             if (Listeners <= 0)
             {
                 Add("Your listeners hit 0: the run ends.");

@@ -36,7 +36,9 @@ One turn = one player phase, then one rival phase.
    played from there. The cued card does not count toward the hand limit. **Proposed.**
 3. **Program.** Play cards in any order by paying their Airtime. Each card resolves fully, then win
    and loss are checked.
-4. **Cue (optional).** If the cue slot is empty, move 1 card from hand into it.
+4. **Cue (optional, free).** Once per turn, at any time during Program, if the cue slot is empty,
+   move 1 card from hand into it. Costs no Airtime and doesn't end your plays. A card cued this turn
+   can't be played until your next turn. **Decided** (user, 2026-10-23), brief §2.
 5. **End turn** (in order):
    1. Dead Air check: if no card with On Air was played this turn, take Dead Air.
    2. End-of-turn card effects resolve (e.g. Complaint Call in hand: lose 3 listeners).
@@ -91,6 +93,7 @@ Triggers at end of turn if no On Air card was played that turn.
 ### Win / loss
 - Rival audience hits 0: you win immediately.
 - Your listeners hit 0: the run ends immediately, in any fight.
+- Both hit 0 from the same card: you win the fight and your listeners are set to 1. **Decided** (user, 2026-10-23), brief §2.
 - **Ratings check** after the final rival phase: your share = listeners ÷ maximum listeners;
   rival share = audience ÷ its starting audience. Higher share wins; a tie goes to you.
 - **Ratings loss** (regular or Prime Time): no rewards, lose 10% of current listeners (rounded up),
@@ -111,6 +114,11 @@ Triggers at end of turn if no On Air card was played that turn.
 
 ## Edge cases
 - Rival hits 0 in the middle of a multi-effect card: the card finishes resolving, then you win.
+- One card drops the rival to 0 and your listeners to 0 (e.g. Reach plus a listener cost): you win,
+  listeners set to 1.
+- Cue, then keep playing: allowed; the cued card stays in the slot and can't be played this turn.
+- A second cue in the same turn (after playing last turn's cued card from the slot): not allowed,
+  once per turn.
 - Your listeners hit 0 from your own Ad, Dead Air, or Complaint Call: the run ends.
 - Ratings-loss penalty reduces listeners to 0 (e.g. 1 listener, 10% rounded up = 1): the run ends.
 - Draw pile and discard pile both empty: stop drawing, no penalty.

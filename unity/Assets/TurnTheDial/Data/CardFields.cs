@@ -15,6 +15,14 @@ namespace TurnTheDial.Data
         [Tooltip("AddCardToPile only.")] public PileKind pile;
     }
 
+    /// <summary>A card trigger as authored (brief §4 `triggers`): fires on its trigger instead of on play.</summary>
+    [Serializable]
+    public sealed class TriggerEntry
+    {
+        public CardTriggerKind kind;
+        public List<EffectEntry> effects = new List<EffectEntry>();
+    }
+
     /// <summary>
     /// The fields of one card face (base or remastered). The remastered face is a full card
     /// (brief §4 "upgrade: the full remastered card, same fields").
@@ -44,8 +52,8 @@ namespace TurnTheDial.Data
 
         [Header("Effects")]
         public List<EffectEntry> effects = new List<EffectEntry>();
-        [Tooltip("Resolve at end of turn while the card is in hand (e.g. Complaint Call).")]
-        public List<EffectEntry> endOfTurnInHand = new List<EffectEntry>();
+        [Tooltip("Effect lists that fire on a trigger instead of on play (e.g. Complaint Call: end of turn, while in hand).")]
+        public List<TriggerEntry> triggers = new List<TriggerEntry>();
 
         [TextArea] public string flavor;
         public string artId;

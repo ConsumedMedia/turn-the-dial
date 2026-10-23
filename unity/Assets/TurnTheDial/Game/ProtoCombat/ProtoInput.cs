@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 namespace TurnTheDial.Game.ProtoCombat
 {
@@ -11,9 +10,8 @@ namespace TurnTheDial.Game.ProtoCombat
     /// Cue = C / gamepad X (west) / right click on a card, Tooltip = T / gamepad Y (north),
     /// End turn = E / gamepad Start. C cues the card under the mouse if there is one, else the
     /// focused card (focus is never empty, so "hovered when nothing is focused" can't occur).
-    /// The default UI Navigate action also binds W/A/S/D, which collides with the prototype's
-    /// debug keys (W win, S seed, D draw), so those four bindings are disabled; arrows, d-pad and
-    /// stick still navigate.
+    /// W/A/S/D stay on navigation (the debug keys are F5-F9, ui.md). Cue is free and doesn't end
+    /// your plays (brief §2).
     /// </summary>
     public sealed class ProtoInput : MonoBehaviour
     {
@@ -39,23 +37,6 @@ namespace TurnTheDial.Game.ProtoCombat
             _endTurn.AddBinding("<Gamepad>/start");
         }
 
-        private static readonly string[] DebugKeyNavigationBindings = { "<Keyboard>/w", "<Keyboard>/a", "<Keyboard>/s", "<Keyboard>/d" };
-
-        private InputAction _overriddenMove;
-
-        private void Start()
-        {
-            var module = FindAnyObjectByType<InputSystemUIInputModule>();
-            if (module == null || module.move == null || module.move.action == null) return;
-            InputAction move = module.move.action;
-            _overriddenMove = move;
-            for (int i = 0; i < DebugKeyNavigationBindings.Length; i++)
-            {
-                // An empty override path disables the binding.
-                move.ApplyBindingOverride(new InputBinding { path = DebugKeyNavigationBindings[i], overridePath = "" });
-            }
-        }
-
         private void OnEnable()
         {
             _cue.performed += OnCue;
@@ -78,16 +59,6 @@ namespace TurnTheDial.Game.ProtoCombat
 
         private void OnDestroy()
         {
-            if (_overriddenMove != null)
-            {
-                for (int i = 0; i < DebugKeyNavigationBindings.Length; i++)
-                {
-                    _overriddenMove.RemoveBindingOverride(new InputBinding { path = DebugKeyNavigationBindings[i] });
-                }
-
-                _overriddenMove = null;
-            }
-
             _cue.Dispose();
             _tooltip.Dispose();
             _endTurn.Dispose();

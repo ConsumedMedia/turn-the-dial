@@ -148,8 +148,8 @@ namespace TurnTheDial.Game.Editor
             var message = Text("Message", root, 300, 395, 570, 40, 15, TextAlignmentOptions.Left, Cream);
             Text("Controls", root, 300, 436, 570, 90, 13, TextAlignmentOptions.Left, new Color(0.75f, 0.72f, 0.66f)).text =
                 "Play: click a card, or Enter / gamepad A on the focused card.  Cue: right-click a card, or C / gamepad X "
-                + "(C cues the card under the mouse, else the focused one). Cueing ends your plays this turn.\n"
-                + "Move focus: arrows / d-pad / stick.  Tooltips: hover or focus; T / gamepad Y hides or shows them.  "
+                + "(C cues the card under the mouse, else the focused one). Cueing is free; the cued card plays next turn.\n"
+                + "Move focus: arrows / WASD / d-pad / stick.  Tooltips: hover or focus; T / gamepad Y hides or shows them.  "
                 + "End turn: E / gamepad Start.  Log: focus it and press up / down, or Page Up / Page Down.";
 
             // Hand (bottom): 2 rows of 5

@@ -23,7 +23,8 @@ No hidden randomness: the pattern is the rival. Players learn it and program aro
 - The shown number is final: Buzz and Exposed already included. A tooltip shows the math.
 - Patterns are listed by turn. Values below are base values before Buzz. If a fight lasts longer than
   the pattern, it loops from turn 1. **Proposed** (loop rule).
-- Monitor reveals the next intents as smaller ghosted icons after the current one.
+- Monitor reveals the next N intents as smaller ghosted icons after the current one, rolling forward
+  for the rest of the daypart (always N ahead). **Decided** (user, 2026-10-23), brief §4.
 - Market modifiers (College Town +10% audience, True Crime Suburbia Buzz 1) apply on top.
 
 ### Regular rivals (12, 4 per book, 6 turns)

@@ -22,6 +22,7 @@ list interpreted by Core. No per-card code. The full card list lives in `docs/CO
 | `reach`, `loyalty`, `hype`, `cash`, `listenerCost` | Base numbers, any can be 0. |
 | `keywords` | From the list below. |
 | `effects` | Ordered list of data effects. |
+| `triggers` | Effect lists that fire on a trigger instead of on play. v1 trigger: end of turn, while in hand (end-turn step 2; Complaint Call's "lose 3"). **Decided** (user, 2026-10-23), brief §4. |
 | `upgrade` | Full remastered card (same fields). One remaster per card; gold RM stamp. |
 | `text`, `flavor`, `artId` | Rules text generated from data where possible. |
 
@@ -44,7 +45,7 @@ On Air comes from the keyword; the type sets the default value.
 | Drop N | See `flow.md`. One hit, no Flow multiplier, Flow 0 afterwards. |
 | Anthem | Classic Rock signature (`formats.md`). |
 | Hold | Stays in hand at end of turn. |
-| Monitor N | See the rival's next N intents this daypart, or the top N cards of your draw pile, as stated. |
+| Monitor N | Intents: see the rival's next N intents for the rest of the daypart, rolling forward (always N ahead). Draw pile: a one-time look at the top N cards. **Decided** (user, 2026-10-23), brief §4. |
 | Pulled | Removed for the rest of the daypart once played (back in the deck next daypart). |
 | Sticky | Interference that stays after the daypart. |
 | Unplayable | Can't be played. |
@@ -64,7 +65,9 @@ Every keyword has a tooltip.
 7. Songs: Flow update (ramp / streak, `flow.md`). An Ad instead sets Flow to 0 and clears last song.
 8. Drop cards: set Flow to 0 (this wipes a Drop Song's own update from step 7).
 9. Card goes to discard (or is removed if Pulled / Complaint Call).
-10. Win/loss check.
+10. "Card played" gear and staff triggers (gear first, then staff), after the card has fully
+    resolved (Reach, Flow update, Drop). **Decided** (user, 2026-10-23).
+11. Win/loss check (both at 0: you win, listeners set to 1; `combat.md`).
 
 Steps 3, 4, 7 and 8 follow the brief (§2, §3: Reach before the song's Flow update; the Drop resolves
 last; one hit). The placement of steps 5 and 6 after the Reach is **Proposed**: a card's own Hype or
@@ -72,7 +75,7 @@ effects never boost its own Reach, matching "a song never benefits from the Flow
 
 ### Effect library (v1 minimum)
 `DrawCards(n)`, `GainFlow(n)`, `GainHype(n)`, `GainLoyalty(n)`, `GainCash(n)`, `LoseListeners(n)`,
-`MonitorIntents(n)`, `MonitorDraw(n)`, `NextSongTempoBonus(n)`, `RaiseFlowCap(n)`,
+`MonitorIntents(n)`, `MonitorDraw(n)`, `NextSongCountsAsRamp`, `RaiseFlowCap(n)`,
 `AddCardToPile(cardId, pile, n)`. New effects are added to the library, never one-off per card.
 
 **Drop is a keyword, not an entry in `effects`.** Its N × Flow is part of the card's single Reach
@@ -104,6 +107,10 @@ effects never boost its own Reach, matching "a song never benefits from the Flow
 ## Edge cases
 - A card with cost above current Airtime can't be played (UI shows it dimmed).
 - Playing from the cue slot empties the cue slot.
+- A card cued this turn can't be played this turn (`combat.md`).
+- Monitor on draw pile: shown once when the card resolves (and in this turn's log); not kept or
+  refreshed as the pile changes.
+- Two Monitor-intent effects in one daypart: the larger N applies; they don't add. **Proposed.**
 - Hold card with Unplayable (Static): stays in hand — avoid in content.
 - Monitor N beyond the remaining turns shows only the remaining intents.
 - Monitor on draw pile with fewer than N cards shows all of them; no reshuffle.
@@ -123,6 +130,7 @@ effects never boost its own Reach, matching "a song never benefits from the Flow
 - Pop genre: which format's streak does a Pop song count for? Proposed: none in v1 (shared filler).
 - Effect order steps 5–6 (other base numbers and the effects list resolve after the card's Reach).
   Proposed above.
+- Two Monitor-intent effects in one daypart: the larger N applies. Proposed above.
 - No duplicates within one card offer. Proposed: yes.
 - Rarity fallback when a rarity is empty (rare → uncommon → common). Proposed above.
 

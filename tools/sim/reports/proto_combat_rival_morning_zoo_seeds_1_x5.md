@@ -39,7 +39,7 @@ Car Dealer Spot: +25 Cash (Cash 75).
 Car Dealer Spot listener cost: lose 4 listeners, ignoring Loyalty (85 -> 81).
 Flow 2 -> 0 (Ad breaks Flow).
 The Ad clears the last song.
-Cued Request Line. It stays in the cue slot and can be played from there.
+Cued Request Line (free). It stays in the cue slot and can be played from there next turn.
 End of turn 1.
 Discarded 0 cards from hand; Request Line stays cued.
 -- Morning Zoo's phase --
@@ -60,7 +60,7 @@ Power Ballad has no last song to follow: no Flow gain (Flow 0).
 Play Request Line from the cue slot: paid 1 Airtime (0 left).
 Request Line: +5 Loyalty (Loyalty 9).
 Ribbon Mic (first DJ Break this turn): +3 Loyalty (Loyalty 12).
-Cued Album Cut. It stays in the cue slot and can be played from there.
+Cued Album Cut (free). It stays in the cue slot and can be played from there next turn.
 End of turn 2.
 Discarded 3 cards from hand; Album Cut stays cued.
 -- Morning Zoo's phase --
@@ -87,7 +87,7 @@ Car Dealer Spot: +25 Cash (Cash 100).
 Car Dealer Spot listener cost: lose 4 listeners, ignoring Loyalty (83 -> 79).
 Flow 3 -> 0 (Ad breaks Flow).
 The Ad clears the last song.
-Cued Album Cut. It stays in the cue slot and can be played from there.
+Cued Album Cut (free). It stays in the cue slot and can be played from there next turn.
 End of turn 3.
 Discarded 2 cards from hand; Album Cut stays cued.
 -- Morning Zoo's phase --
@@ -112,7 +112,7 @@ Play Album Cut: paid 1 Airtime (0 left).
 Album Cut repeat play: Burnout 5.
 Album Cut: 6 x 0.25 Burnout 5 = 1 Reach, 1 to the rival, +0 listeners (10% of 1 = 0). Rival audience 12 -> 11.
 Flow 0 -> 1 (Album Cut: genre streak (Rock)).
-Cued Request Line. It stays in the cue slot and can be played from there.
+Cued Request Line (free). It stays in the cue slot and can be played from there next turn.
 End of turn 4.
 Discarded 2 cards from hand; Request Line stays cued.
 -- Morning Zoo's phase --
@@ -160,7 +160,7 @@ Power Ballad has no last song to follow: no Flow gain (Flow 0).
 Play Request Line from the cue slot: paid 1 Airtime (0 left).
 Request Line: +5 Loyalty (Loyalty 9).
 Ribbon Mic (first DJ Break this turn): +3 Loyalty (Loyalty 12).
-Cued Request Line. It stays in the cue slot and can be played from there.
+Cued Request Line (free). It stays in the cue slot and can be played from there next turn.
 End of turn 6.
 Discarded 3 cards from hand; Request Line stays cued.
 -- Morning Zoo's phase --

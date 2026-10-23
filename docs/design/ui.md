@@ -53,7 +53,7 @@ rule, the color rule wins.
 | Remote Broadcast | Van at the location. Pick 1 of 2 gear. |
 | Deck / Collection | Crate browser. Filter by type, genre, tempo; remaster previews. |
 | Run end | "Ratings book" report: books reached, fights won, Ratings Points, unlocks. |
-| Settings | Game speed toggle, text size, controller remap, screen shake, colorblind preview, audio mix. |
+| Settings | Game speed toggle, text size, controller remap, screen shake, reduce motion, colorblind preview, audio mix. |
 
 ### Input
 - Input System action maps: `UI`, `Desk`, `Map`. Gamepad: d-pad/stick moves focus between booth objects
@@ -62,6 +62,10 @@ rule, the color rule wins.
   button map and the Dead Air confirm; the brief requires only full controller support).
 - Focus is always visible. No dead ends: every screen has a focusable way back.
 - Glyphs switch to the last-used device.
+- Cue is a free action any time during your turn (`combat.md`); cueing never ends your plays.
+- **Debug keys** (development builds only): F5 restart with a new seed, F6 show the seed, F7 draw a
+  card, F8 win the fight, F9 lose it. W/A/S/D stay on navigation. **Decided** (user, 2026-10-23).
+- **Reduce motion** turns off the on-air light's flicker; its warning state still dims. **Decided** (user, 2026-10-23), brief §10.
 
 ### Guided first fight
 First run only: a scripted Chill Coastal Village fight with callouts on the tuner, hand, Flow meter,
@@ -75,15 +79,20 @@ intent and on-air light. Rules are identical to a normal fight.
 | `ui.textScale` | 100%, 125%, 150% *(proposed)* |
 | `ui.rivalBlinkHz` | 1.0 *(proposed)* |
 | `ui.needleLerp` | 0.5 s *(proposed)* |
+| `ui.onAirFlickerHz` | 2 (**Decided** (user, 2026-10-23); under the 3 flashes per second photosensitivity limit) |
+| `ui.logLines` | 50 (**Decided** (user, 2026-10-23); combat log lines kept on the clipboard) |
 
 The brief requires a speed toggle, a text-size setting, a blinking rival and a drifting needle, but
-gives no values; every value above except `ui.minTextPx` is **Proposed**.
+gives no values; every value above except `ui.minTextPx`, `ui.onAirFlickerHz` and `ui.logLines` is
+**Proposed**.
 
 ## Edge cases
 - 10 cards in hand at 1280×800 with 150% text: the desk mat fans/overlaps cards but each stays selectable.
 - Monitor showing 3+ ghosted intents: they shrink, never overlap the rival's readout.
 - Colorblind preview modes: every you-versus-rival signal still distinguishable.
 - Gamepad disconnect mid-fight: pause and prompt.
+- Reduce motion on: the on-air warning dims without flickering. The rival's blink is unchanged (the
+  color rule needs motion). **Proposed.**
 
 ## Open questions (ask before building)
 - Gamepad button map (A play, B back, X cue, Y tooltip, Start end turn) and the end-turn confirm when
@@ -91,6 +100,7 @@ gives no values; every value above except `ui.minTextPx` is **Proposed**.
 - Game speeds 1× and 2×; text scales 100 / 125 / 150%; rival blink 1.0 Hz; needle drift 0.5 s.
   Proposed above.
 - Is a fight node's rival shown on the town map? See `map.md` (proposed: no).
+- Reduce motion leaves the rival's blink on (the color rule needs motion). Proposed above.
 
 ## Done checklist
 - [ ] Every screen in the tables built and navigable with mouse, keyboard and gamepad

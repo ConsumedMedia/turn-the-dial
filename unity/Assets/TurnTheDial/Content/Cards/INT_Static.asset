@@ -34,7 +34,7 @@ MonoBehaviour:
     sticky: 0
     unplayable: 1
     effects: []
-    endOfTurnInHand: []
+    triggers: []
     flavor: 
     artId: 
   hasUpgrade: 0
@@ -57,6 +57,6 @@ MonoBehaviour:
     sticky: 0
     unplayable: 0
     effects: []
-    endOfTurnInHand: []
+    triggers: []
     flavor: 
     artId: 

@@ -47,7 +47,7 @@ namespace TurnTheDial.Data
                     Unplayable = f.unplayable,
                 },
                 Effects = Effects(f.effects),
-                EndOfTurnInHand = Effects(f.endOfTurnInHand),
+                Triggers = Triggers(f.triggers),
                 IsRemastered = remastered,
                 Flavor = f.flavor,
                 ArtId = f.artId,
@@ -62,6 +62,18 @@ namespace TurnTheDial.Data
             {
                 EffectEntry e = entries[i];
                 list.Add(new EffectData(e.kind, e.amount, e.card != null ? e.card.id : null, e.pile));
+            }
+
+            return list;
+        }
+
+        public static List<CardTrigger> Triggers(List<TriggerEntry> entries)
+        {
+            var list = new List<CardTrigger>();
+            if (entries == null) return list;
+            for (int i = 0; i < entries.Count; i++)
+            {
+                list.Add(new CardTrigger(entries[i].kind, Effects(entries[i].effects)));
             }
 
             return list;

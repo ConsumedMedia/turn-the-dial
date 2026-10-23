@@ -106,15 +106,16 @@ namespace TurnTheDial.Core.Content
                 Append(sb, EffectText(card.Effects[i], catalog));
             }
 
-            if (card.EndOfTurnInHand.Count > 0)
+            for (int t = 0; t < card.Triggers.Count; t++)
             {
+                CardTrigger trigger = card.Triggers[t];
                 var inner = new StringBuilder();
-                for (int i = 0; i < card.EndOfTurnInHand.Count; i++)
+                for (int i = 0; i < trigger.Effects.Count; i++)
                 {
-                    Append(inner, EffectText(card.EndOfTurnInHand[i], catalog));
+                    Append(inner, EffectText(trigger.Effects[i], catalog));
                 }
 
-                Append(sb, "In hand at end of turn: " + LowerFirst(inner.ToString()));
+                Append(sb, TriggerLabel(trigger.Kind) + ": " + LowerFirst(inner.ToString()));
             }
 
             return sb.ToString();
@@ -133,7 +134,7 @@ namespace TurnTheDial.Core.Content
                 case EffectKind.LoseListeners: return "Lose " + n + " listeners.";
                 case EffectKind.MonitorIntents: return "Monitor " + n + ": see the rival's next " + n + " intents.";
                 case EffectKind.MonitorDraw: return "Monitor " + n + ": see the top " + n + " cards of your draw pile.";
-                case EffectKind.NextSongTempoBonus: return "Your next Song counts as +" + n + " tempo for the ramp.";
+                case EffectKind.NextSongCountsAsRamp: return "Your next Song counts as a rising ramp.";
                 case EffectKind.RaiseFlowCap: return "+" + n + " Flow cap this daypart.";
                 case EffectKind.AddCardToPile:
                     string name = e.CardId;
@@ -144,6 +145,14 @@ namespace TurnTheDial.Core.Content
 
                     return "Add " + n + " " + name + " to your " + PileName(e.Pile) + ".";
                 default: return "";
+            }
+        }
+
+        public static string TriggerLabel(CardTriggerKind kind)
+        {
+            switch (kind)
+            {
+                default: return "In hand at end of turn";
             }
         }
 

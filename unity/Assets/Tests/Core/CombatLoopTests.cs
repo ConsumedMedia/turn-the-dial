@@ -135,15 +135,72 @@ namespace TurnTheDial.Core.Tests
             Assert.IsFalse(f.Cue(b.Uid).Ok);
         }
 
+        // Cue: Decided (user, 2026-10-23), brief §2 / combat.md: free, once per turn, any time during
+        // Program, only into an empty slot; doesn't end your plays; a card cued this turn plays next turn.
         [Test]
-        public void Cue_ComesAfterProgram_NoPlaysAfterCueing()
+        public void Cue_IsFree_ThenKeepPlaying()
         {
-            // Brief §2 player phase order: Program (3), then Cue (4), then End turn (5).
             Fight f = Started();
             CardInstance a = f.TestPutInHand(AlbumCut());
             CardInstance b = f.TestPutInHand(AlbumCut());
             Assert.IsTrue(f.Cue(a.Uid).Ok);
-            Assert.IsFalse(f.CanPlay(b.Uid, out _));
+            Assert.AreEqual(3, f.Airtime, "cueing costs no Airtime");
+            Assert.IsTrue(f.PlayCard(b.Uid).Ok);
+            Assert.AreEqual(44, f.RivalAudience);
+        }
+
+        [Test]
+        public void Cue_CardCuedThisTurn_UnplayableUntilNextTurn()
+        {
+            Fight f = Started();
+            CardInstance a = f.TestPutInHand(AlbumCut());
+            Assert.IsTrue(f.Cue(a.Uid).Ok);
+            Assert.IsFalse(f.CanPlay(a.Uid, out string reason));
+            StringAssert.Contains("cued this turn", reason);
+            Assert.IsFalse(f.PlayCard(a.Uid).Ok);
+            Assert.AreEqual(1, f.CueSlot.Count);
+            f.EndTurn();
+            Assert.IsTrue(f.PlayCard(a.Uid).Ok);
+            Assert.AreEqual(0, f.CueSlot.Count);
+        }
+
+        [Test]
+        public void Cue_SecondCueInOneTurn_Refused_EvenAfterPlayingLastTurnsCuedCard()
+        {
+            Fight f = Started();
+            CardInstance a = f.TestPutInHand(AlbumCut());
+            Assert.IsTrue(f.Cue(a.Uid).Ok);
+            f.EndTurn();
+            CardInstance b = f.TestPutInHand(AlbumCut());
+            CardInstance c = f.TestPutInHand(AlbumCut());
+            Assert.IsTrue(f.PlayCard(a.Uid).Ok, "last turn's cued card plays from the slot");
+            Assert.AreEqual(0, f.CueSlot.Count);
+            Assert.IsTrue(f.Cue(b.Uid).Ok, "first cue this turn");
+            Assert.IsFalse(f.CanCue(c.Uid, out string reason));
+            StringAssert.Contains("once per turn", reason);
+        }
+
+        [Test]
+        public void Cue_SecondCueInOneTurn_RefusedOncePerTurn()
+        {
+            Fight f = Started();
+            CardInstance a = f.TestPutInHand(AlbumCut());
+            CardInstance b = f.TestPutInHand(AlbumCut());
+            Assert.IsTrue(f.Cue(a.Uid).Ok);
+            Assert.IsFalse(f.CanCue(b.Uid, out string reason));
+            StringAssert.Contains("once per turn", reason);
+        }
+
+        [Test]
+        public void Cue_SlotFullFromLastTurn_Refused()
+        {
+            Fight f = Started();
+            CardInstance a = f.TestPutInHand(AlbumCut());
+            Assert.IsTrue(f.Cue(a.Uid).Ok);
+            f.EndTurn();
+            CardInstance b = f.TestPutInHand(AlbumCut());
+            Assert.IsFalse(f.CanCue(b.Uid, out string reason));
+            StringAssert.Contains("full", reason);
         }
 
         [Test]

@@ -94,7 +94,7 @@ namespace TurnTheDial.Core.Sim
             // 4. Clear Interference that hurts at end of turn.
             for (int i = 0; i < playable.Count; i++)
             {
-                if (playable[i].Card.EndOfTurnInHand.Count > 0) return playable[i].Uid;
+                if (playable[i].Card.Triggers.Count > 0) return playable[i].Uid;
             }
 
             // 5. Ads when listeners are healthy.

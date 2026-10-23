@@ -1,5 +1,19 @@
 namespace TurnTheDial.Core.Content
 {
+    /// <summary>A card trigger (brief §4 `triggers`): an effect list that fires on a trigger instead of on play.</summary>
+    public sealed class CardTrigger
+    {
+        public CardTrigger(CardTriggerKind kind, System.Collections.Generic.List<EffectData> effects)
+        {
+            Kind = kind;
+            Effects = effects ?? new System.Collections.Generic.List<EffectData>();
+        }
+
+        public CardTriggerKind Kind { get; }
+
+        public System.Collections.Generic.List<EffectData> Effects { get; }
+    }
+
     /// <summary>One entry of a card's or gear's ordered effect list (cards.md, Effect library).</summary>
     public sealed class EffectData
     {

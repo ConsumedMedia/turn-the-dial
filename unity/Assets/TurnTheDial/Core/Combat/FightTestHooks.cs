@@ -20,7 +20,6 @@ namespace TurnTheDial.Core.Combat
         internal void TestSetLastSong(CardData song)
         {
             LastSong = song;
-            _lastSongRampTempo = song == null ? 0 : song.Tempo;
         }
 
         /// <summary>Creates a new copy of the card straight in hand (no hand-limit check).</summary>

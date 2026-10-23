@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TurnTheDial.Data
 {
@@ -8,7 +9,11 @@ namespace TurnTheDial.Data
     {
         [Tooltip("ui.rivalBlinkHz (Proposed, ui.md)")] public float rivalBlinkHz;
         [Tooltip("ui.minTextPx at 1280x800")] public int minTextPx;
-        [Tooltip("Combat log lines kept on screen (prototype display only).")] public int logLinesShown;
-        [Tooltip("On-air light flicker rate in its warning state (prototype display only).")] public float onAirWarningFlickerHz;
+        [Tooltip("ui.logLines: combat log lines kept on the clipboard (Decided, user, 2026-10-23)")]
+        [FormerlySerializedAs("logLinesShown")] public int logLines;
+        [Tooltip("ui.onAirFlickerHz: on-air warning flicker, under 3 flashes/second (Decided, user, 2026-10-23)")]
+        [FormerlySerializedAs("onAirWarningFlickerHz")] public float onAirFlickerHz;
+        [Tooltip("Reduce motion (brief §10): turns off the on-air flicker; the warning still dims and the rival still blinks. Settings toggle later; default off.")]
+        public bool reduceMotion;
     }
 }

@@ -76,6 +76,15 @@ namespace TurnTheDial.Core.Tests
         }
 
         [Test]
+        public void Validator_UnknownTrigger_Fails()
+        {
+            CardData c = ComplaintCall();
+            c.Triggers.Add(new CardTrigger((CardTriggerKind)99, new List<EffectData>()));
+            Assert.IsNotEmpty(ContentValidator.ValidateCard(c));
+            CollectionAssert.IsEmpty(ContentValidator.ValidateCard(ComplaintCall()));
+        }
+
+        [Test]
         public void Validator_UpgradeMustKeepName()
         {
             CardData c = AlbumCut();
@@ -129,6 +138,7 @@ namespace TurnTheDial.Core.Tests
             Assert.AreEqual("Unplayable.", CardTextGenerator.RulesText(Static()));
             Assert.AreEqual("Pulled. In hand at end of turn: lose 3 listeners.", CardTextGenerator.RulesText(ComplaintCall()));
             Assert.AreEqual("On Air. 3 Reach + Drop 2.", CardTextGenerator.RulesText(HypeMan()));
+            Assert.AreEqual("Your next Song counts as a rising ramp.", CardTextGenerator.RulesText(AirHorn()));
             Assert.AreEqual("Song · Rock · T3", CardTextGenerator.TypeLine(AlbumCut()));
         }
 
@@ -174,18 +184,21 @@ namespace TurnTheDial.Core.Tests
             Fight f = Started();
             f.TestPutInDiscard(AlbumCut());
             f.TestPutOnDraw(PowerBallad());
+            IReadOnlyList<CardInstance> shown = null;
+            f.DrawMonitored += top => shown = top;
             Play(f, TestEffectCard("Peek Draw", CardType.Liner, 0, new EffectData(EffectKind.MonitorDraw, 3)));
-            Assert.AreEqual(1, f.PeekDraw(f.MonitorDrawCount).Count);
+            Assert.AreEqual(1, shown.Count);
+            Assert.AreEqual("Power Ballad", shown[0].Card.Name);
             Assert.AreEqual(1, f.DiscardPile.Count - 1, "discard untouched (plus the played liner)");
             Assert.AreEqual(1, f.DrawPile.Count);
         }
 
         [Test]
-        public void Effect_NextSongTempoBonus()
+        public void Effect_NextSongCountsAsRamp_SetsFlag()
         {
             Fight f = Started();
-            Play(f, TestEffectCard("Horn", CardType.Liner, 0, new EffectData(EffectKind.NextSongTempoBonus, 2)));
-            Assert.AreEqual(2, f.PendingTempoBonus);
+            Play(f, TestEffectCard("Horn", CardType.Liner, 0, new EffectData(EffectKind.NextSongCountsAsRamp, 0)));
+            Assert.IsTrue(f.PendingRamp);
         }
 
         [Test]

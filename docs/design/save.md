@@ -78,6 +78,8 @@ changes between processes). **Proposed** (derivation method). Every stream's sta
 | `rng.staff` | In-fight chance traits such as Loose Cannon's turn-start roll (`staff.md`). **Proposed** (keeps fight rolls apart from shuffles). |
 
 - A reroll uses the same stream as the roll it replaces.
+- The debug restart key picks a new run seed in the Game layer (development builds only). It is not
+  a run stream and is never saved. **Decided** (user, 2026-10-23).
 - Bosses are fixed per book; no roll. Rival intents are fixed patterns; no roll.
 - No other source of randomness is allowed (`System.Random`, `UnityEngine.Random`, `Guid`, clock time).
 
@@ -95,11 +97,11 @@ changes between processes). **Proposed** (derivation method). Every stream's sta
   - turn number and fight kind (sets fight length, The Flip and Satellite Feed timing);
   - current Flow cap (after any `RaiseFlowCap` this daypart);
   - genre streak count (Playlist Bot, `flow.md`);
-  - a pending Air Horn ramp bonus not yet used by a Song, with its stack count (`flow.md`);
+  - a pending Air Horn ramp bonus not yet used by a Song (a flag; two Air Horns don't stack, `flow.md`);
   - cards Pulled or removed for the rest of the daypart (Pulled cards, played Complaint Calls;
     `cards.md`, `statuses.md`), and which cards in the piles are Interference to remove at daypart end;
   - once-per-daypart gear and staff flags (e.g. Sampler has fired, `formats.md`);
-  - Monitor reveals still showing this daypart (how many intents are revealed);
+  - the active Monitor-intent depth N, which rolls forward for the rest of the daypart (`cards.md`);
   - the rival's starting audience (ratings check), Lock, Buzz and its currently shown intent (some
     passives change an intent when it is revealed, e.g. Pledge Drive, `rivals.md`);
   - Countdown's last Steal base value (`rivals.md`);

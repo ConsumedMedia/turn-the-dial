@@ -52,7 +52,7 @@ You start a run at full listeners (= max). **Proposed** (the brief gives only th
 | 1 | Rooftop Jam | Song · Hip-Hop · T4 | 1 | 5 Reach [7] |
 | 2 | Shout-Out | DJ Break | 1 | 4 Loyalty [7] |
 | 1 | Hype Man | DJ Break · Drop 2 | 1 | 3 Reach + Drop 2 [Drop 3] |
-| 1 | Air Horn | Liner | 0 | Next Song +1 tempo for the ramp [and draw 1] |
+| 1 | Air Horn | Liner | 0 | Next Song counts as a rising ramp [and draw 1] |
 | 1 | Sneaker Drop Spot | Ad | 0 | +20 Cash, lose 3 listeners [+30 Cash] |
 | 1 | Banger | Song · Hip-Hop · T5 · Drop 3 | 2 | 7 Reach + Drop 3 [10 Reach] |
 
@@ -93,8 +93,8 @@ All numbers in the tables above, plus:
 - Hip-Hop starter songs: Corner Cypher, Block Party, Basement Session and Rooftop Jam have different
   names, so playing all four in a daypart adds no Burnout. **Decided** (brief §5 starter table;
   LESSONS Block Party line).
-- Loop + Air Horn: tempo 5 + 1 = 6 for the ramp check; a T1 after it still counts as a ramp.
-  **Proposed.**
+- Loop + Air Horn: Air Horn changes no tempo, so Loop's T1-after-T5 wrap reads the real tempos. An
+  Air-Horned T4 followed by a T1 is not a ramp. **Decided** (user, 2026-10-23), from the Air Horn rule.
 
 ## Open questions (ask before building)
 - **Mail Sack:** "after winning a daypart" — does it include Prime Time and boss wins? Proposed: yes, any fight.
@@ -102,7 +102,6 @@ All numbers in the tables above, plus:
   listener cost, Listener Mail RM keeps +1 Hype, Hype Man RM keeps 3 Reach). Proposed above.
 - **Starting listeners:** a run starts at full listeners. Proposed above.
 - **Sampler:** a jump past 5 (4 → 6) counts as reaching 5. Proposed above.
-- **Loop + Air Horn:** a T1 after an Air-Horned T5 (counted as 6) still ramps. Proposed above.
 
 ## Done checklist
 - [ ] Format data assets for all three, exported to Core

@@ -61,9 +61,17 @@ namespace TurnTheDial.Core.Content
         LoseListeners = 5,
         MonitorIntents = 6,
         MonitorDraw = 7,
-        NextSongTempoBonus = 8,
+        /// <summary>Air Horn (brief §5): the next Song counts as a rising ramp. Amount unused.</summary>
+        NextSongCountsAsRamp = 8,
         RaiseFlowCap = 9,
         AddCardToPile = 10,
+    }
+
+    /// <summary>When a card's trigger fires instead of on play (brief §4 `triggers`).</summary>
+    public enum CardTriggerKind
+    {
+        /// <summary>End of turn, while the card is in hand (end-turn step 2). A cued card isn't in hand.</summary>
+        EndOfTurnInHand = 0,
     }
 
     /// <summary>Rival intents (brief §7, rivals.md).</summary>

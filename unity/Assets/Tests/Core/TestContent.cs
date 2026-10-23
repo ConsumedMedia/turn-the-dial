@@ -80,7 +80,7 @@ namespace TurnTheDial.Core.Tests
                 Pool = card.Pool,
                 Keywords = card.Keywords.Clone(),
                 Effects = new List<EffectData>(card.Effects),
-                EndOfTurnInHand = new List<EffectData>(card.EndOfTurnInHand),
+                Triggers = new List<CardTrigger>(card.Triggers),
                 IsRemastered = true,
             };
             change(up);
@@ -129,7 +129,7 @@ namespace TurnTheDial.Core.Tests
         {
             Id = "card.hh.air_horn", Name = "Air Horn", Type = CardType.Liner, Cost = 0,
             Rarity = Rarity.Starter, Pool = CardPool.HipHopHeat, Keywords = new CardKeywords(),
-            Effects = new List<EffectData> { new EffectData(EffectKind.NextSongTempoBonus, 1) },
+            Effects = new List<EffectData> { new EffectData(EffectKind.NextSongCountsAsRamp, 0) },
         };
 
         public static CardData ListenerMail() => new CardData
@@ -151,7 +151,7 @@ namespace TurnTheDial.Core.Tests
         {
             Id = "card.int.complaint_call", Name = "Complaint Call", Type = CardType.Interference, Cost = 1,
             Rarity = Rarity.Special, Pool = CardPool.Rival, Keywords = new CardKeywords { Pulled = true },
-            EndOfTurnInHand = new List<EffectData> { new EffectData(EffectKind.LoseListeners, 3) },
+            Triggers = new List<CardTrigger> { new CardTrigger(CardTriggerKind.EndOfTurnInHand, new List<EffectData> { new EffectData(EffectKind.LoseListeners, 3) }) },
         };
 
         // Test-only cards.

@@ -31,7 +31,7 @@ A **daypart** is one fight against one rival. It lasts a fixed number of turns: 
 1. **Turn start.** Your Loyalty clears to 0. Airtime is set to 3 (plus modifiers). Start-of-turn gear and staff effects trigger.
 2. **Draw 5.** If the draw pile runs out, shuffle the discard pile into it. Hand limit is 10; any extra draws go to the discard pile. A card in the cue slot stays there and can be played from it.
 3. **Program.** Play cards in any order by paying their Airtime. Each card resolves fully before the next one. Win and loss are checked after every card (see Win/Loss).
-4. **Cue (optional).** If the cue slot is empty, move 1 card from your hand into it.
+4. **Cue (optional, free).** Once per turn, at any time during Program, if the cue slot is empty, move 1 card from your hand into it. Cueing costs no Airtime and doesn't end your plays. A card cued this turn can't be played until your next turn.
 5. **End turn**, in this order:
    1. **Dead Air check.** If you played no card with On Air this turn, take Dead Air (section 3).
    2. End-of-turn card effects resolve (e.g. Complaint Call).
@@ -47,6 +47,7 @@ A **daypart** is one fight against one rival. It lasts a fixed number of turns: 
 ### Win/Loss
 - **Rival audience hits 0:** you win immediately.
 - **Your listeners hit 0:** the run ends immediately, in any fight.
+- **Both hit 0 from the same card:** you win the fight, and your listeners are set to 1.
 - **Ratings check** (after the final rival phase): your share = listeners ÷ maximum listeners. The rival's share = audience ÷ its starting audience. The higher share wins, and a tie goes to you.
 - **Ratings loss:** in a regular Daypart or Prime Time you get no rewards and lose 10% of your current listeners (rounded up), and the run continues. Your maximum listeners don't change. Losing a boss on ratings ends the run.
 
@@ -103,6 +104,7 @@ Every card is a data asset; no card logic is hard-coded per card (pillar 7).
 | `reach`, `loyalty`, `hype`, `cash`, `listenerCost` | Base numbers; any can be 0. |
 | `keywords` | See list below. Every keyword has a tooltip (pillar 5). |
 | `effects` | An ordered list of data-driven effects (draw N, gain Flow, peek N, etc.). |
+| `triggers` | Effect lists that fire on a trigger instead of on play. v1 trigger: **end of turn, while in hand** (resolves at end-turn step 2; e.g. Complaint Call). |
 | `upgrade` | The full remastered card (same fields). Each card can be remastered once; remastered cards show a gold **RM** stamp. |
 | `text`, `flavor`, `artId` | Rules text is generated from data where possible. |
 
@@ -119,7 +121,7 @@ Every card is a data asset; no card logic is hard-coded per card (pillar 7).
 - **Drop N:** see section 3.
 - **Anthem:** Classic Rock signature (section 5).
 - **Hold:** stays in hand at end of turn.
-- **Monitor N:** see the rival's next N intents this daypart, or the top N cards of your draw pile, as the card states.
+- **Monitor N:** on intents, you see the rival's next N intents for the rest of the daypart; the peek rolls forward so you always see N ahead. On your draw pile, a one-time look at the top N cards.
 - **Pulled:** removed for the rest of the daypart once played.
 - **Sticky:** Interference that doesn't leave after the daypart.
 - **Unplayable**
@@ -155,7 +157,7 @@ Every card is a data asset; no card logic is hard-coded per card (pillar 7).
 | 1 | Rooftop Jam | Song · Hip-Hop · T4 | 1 | 5 Reach [7] |
 | 2 | Shout-Out | DJ Break | 1 | 4 Loyalty [7] |
 | 1 | Hype Man | DJ Break · Drop 2 | 1 | 3 Reach + Drop 2 [Drop 3] |
-| 1 | Air Horn | Liner | 0 | Your next Song counts as +1 tempo for the ramp [and draw 1] |
+| 1 | Air Horn | Liner | 0 | Your next Song counts as a rising ramp [and draw 1] |
 | 1 | Sneaker Drop Spot | Ad | 0 | +20 Cash, lose 3 listeners [+30 Cash] |
 | 1 | Banger | Song · Hip-Hop · T5 · Drop 3 | 2 | 7 Reach + Drop 3 [10 Reach] |
 
@@ -309,7 +311,7 @@ Two kinds of view. **Fights use the desk view:** a fixed seat in the booth, wher
 | Remote Broadcast | Van at the location. Pick 1 of 2 gear. |
 | Deck / Collection | Crate browser. Filter by type, genre and tempo; shows remaster previews. |
 | Run end | The "ratings book" report: books reached, fights won, Ratings Points earned, unlocks. |
-| Settings | Game speed toggle, text size, controller remap, screen shake, colorblind preview, audio mix. |
+| Settings | Game speed toggle, text size, controller remap, screen shake, reduce motion (turns off the on-air light's flicker), colorblind preview, audio mix. |
 
 ---
 

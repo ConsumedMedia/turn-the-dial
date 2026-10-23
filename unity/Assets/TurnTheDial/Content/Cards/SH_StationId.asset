@@ -38,7 +38,7 @@ MonoBehaviour:
       amount: 1
       card: {fileID: 0}
       pile: 0
-    endOfTurnInHand: []
+    triggers: []
     flavor: 
     artId: 
   hasUpgrade: 1
@@ -65,6 +65,6 @@ MonoBehaviour:
       amount: 2
       card: {fileID: 0}
       pile: 0
-    endOfTurnInHand: []
+    triggers: []
     flavor: 
     artId: 

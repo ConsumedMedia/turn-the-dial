@@ -132,49 +132,77 @@ namespace TurnTheDial.Core.Tests
             Assert.AreEqual(1, g.Flow); // streak only
         }
 
+        // Air Horn: Decided (user, 2026-10-23), flow.md / brief §5: the next Song counts as a rising
+        // ramp, whatever its tempo; it changes no tempo. (Replaces the old +1 tempo rule.)
         [Test]
-        public void AirHorn_NextSongPlusOneTempoForRamp()
+        public void AirHorn_NextSongCountsAsRamp_EvenAtLowerTempo()
+        {
+            Fight f = Started(format: HipHopHeat());
+            f.TestSetLastSong(RooftopJam()); // T4
+            Play(f, AirHorn());
+            Play(f, CornerCypher()); // T1 after T4: would miss the ramp without Air Horn
+            Assert.AreEqual(2, f.Flow); // ramp (Air Horn) + genre streak
+            Assert.IsFalse(f.PendingRamp);
+            Assert.AreEqual(1, f.LastSong.Tempo, "Air Horn changes no tempo");
+        }
+
+        [Test]
+        public void AirHorn_OnAHigherTempoSong_StillOneRamp()
         {
             Fight f = Started(format: HipHopHeat());
             f.TestSetLastSong(BlockParty()); // T2
             Play(f, AirHorn());
-            Play(f, BlockParty()); // counts as T3
+            Play(f, RooftopJam()); // T4: a ramp anyway; Air Horn doesn't add a second one
             Assert.AreEqual(2, f.Flow);
-            Assert.AreEqual(0, f.PendingTempoBonus);
         }
 
         [Test]
-        public void TwoAirHorns_PlusTwo()
+        public void TwoAirHorns_DoNotStack_OneRamp_BothConsumed()
         {
+            // Proposed (flow.md).
             Fight f = Started(format: HipHopHeat());
-            f.TestSetLastSong(BlockParty()); // T2
+            f.TestSetLastSong(RooftopJam()); // T4
             Play(f, AirHorn());
             Play(f, AirHorn());
-            Play(f, CornerCypher()); // T1 + 2 = 3 > 2
-            Assert.AreEqual(2, f.Flow);
+            Play(f, CornerCypher()); // T1
+            Assert.AreEqual(2, f.Flow); // one ramp + streak
+            Assert.IsFalse(f.PendingRamp);
+            Play(f, CornerCypher()); // T1 again: no ramp left, streak only
+            Assert.AreEqual(3, f.Flow);
         }
 
         [Test]
-        public void AirHorn_SurvivesAnAd_ConsumedByNextSong()
+        public void AirHorn_SurvivesAnAd_NextSongStillCountsAsRamp()
         {
+            // Proposed (flow.md): the ramp applies even though the Ad cleared last song.
             Fight f = Started(format: HipHopHeat());
             f.TestSetLastSong(BlockParty());
             Play(f, AirHorn());
             Play(f, CarDealerSpot());
-            Assert.AreEqual(1, f.PendingTempoBonus);
-            Play(f, RooftopJam()); // no last song after the Ad: no ramp
-            Assert.AreEqual(0, f.Flow);
-            Assert.AreEqual(0, f.PendingTempoBonus);
+            Assert.IsTrue(f.PendingRamp);
+            Play(f, RooftopJam()); // no last song: ramp from Air Horn only, no streak
+            Assert.AreEqual(1, f.Flow);
+            Assert.IsFalse(f.PendingRamp);
         }
 
         [Test]
-        public void Loop_PlusAirHorn_T5CountsAs6_T1AfterStillRamps()
+        public void AirHorn_FirstSongOfDaypart_CountsAsRamp()
+        {
+            // Proposed (flow.md): "counts as a rising ramp" overrides "no last song".
+            Fight f = Started(format: HipHopHeat());
+            Play(f, AirHorn());
+            Play(f, BlockParty());
+            Assert.AreEqual(1, f.Flow);
+        }
+
+        [Test]
+        public void Loop_PlusAirHorn_BangerFirstThenT1_Wraps()
         {
             Fight f = Started(format: HipHopHeat());
             Play(f, AirHorn());
-            Play(f, Banger()); // counted as T6; Drop leaves Flow 0
+            Play(f, Banger()); // first song: Air Horn ramp +1, then the Drop wipes Flow
             Assert.AreEqual(0, f.Flow);
-            Play(f, CornerCypher());
+            Play(f, CornerCypher()); // real T5 -> T1: Loop wrap + streak
             Assert.AreEqual(2, f.Flow);
         }
 

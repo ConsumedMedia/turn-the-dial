@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: TurnTheDial.Data::TurnTheDial.Data.UiConfigAsset
   rivalBlinkHz: 1
   minTextPx: 12
-  logLinesShown: 200
-  onAirWarningFlickerHz: 2
+  logLines: 50
+  onAirFlickerHz: 2
+  reduceMotion: 0

@@ -34,11 +34,13 @@ MonoBehaviour:
     sticky: 0
     unplayable: 0
     effects: []
-    endOfTurnInHand:
-    - kind: 5
-      amount: 3
-      card: {fileID: 0}
-      pile: 0
+    triggers:
+    - kind: 0
+      effects:
+      - kind: 5
+        amount: 3
+        card: {fileID: 0}
+        pile: 0
     flavor: 
     artId: 
   hasUpgrade: 0
@@ -61,6 +63,6 @@ MonoBehaviour:
     sticky: 0
     unplayable: 0
     effects: []
-    endOfTurnInHand: []
+    triggers: []
     flavor: 
     artId: 

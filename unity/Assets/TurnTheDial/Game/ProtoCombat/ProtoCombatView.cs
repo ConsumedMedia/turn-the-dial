@@ -91,7 +91,7 @@ namespace TurnTheDial.Game.ProtoCombat
             if (!_logDirty || controller.Fight == null) return;
             _logDirty = false;
             IReadOnlyList<string> lines = controller.Fight.Log.Lines;
-            int shown = uiConfig != null && uiConfig.logLinesShown > 0 ? uiConfig.logLinesShown : lines.Count;
+            int shown = uiConfig != null && uiConfig.logLines > 0 ? uiConfig.logLines : lines.Count;
             int start = Mathf.Max(0, lines.Count - shown);
             var sb = new StringBuilder();
             for (int i = start; i < lines.Count; i++)
@@ -113,7 +113,7 @@ namespace TurnTheDial.Game.ProtoCombat
 
             youName.text = "YOU · " + f.Format.Name;
             rivalName.text = f.Rival.Name + " · RIVAL";
-            seedLabel.text = "Seed " + controller.Seed.ToString(CultureInfo.InvariantCulture) + "  ·  Debug: R restart, S seed, D draw, W win, L lose";
+            seedLabel.text = "Seed " + controller.Seed.ToString(CultureInfo.InvariantCulture) + "  ·  Debug: F5 restart, F6 seed, F7 draw, F8 win, F9 lose";
 
             listeners.Set("Listeners " + f.Listeners + " / " + f.MaxListeners, Glossary.TermText(Term.Listeners, b));
             audience.Set("Audience " + f.RivalAudience + " / " + f.RivalStartingAudience, Glossary.TermText(Term.RivalAudience, b));
@@ -127,7 +127,7 @@ namespace TurnTheDial.Game.ProtoCombat
             cash.Set("Cash " + f.Cash, Glossary.TermText(Term.Cash, b));
             deadAir.Set("Dead Air " + f.DeadAirCount + " (next -" + f.NextDeadAirLoss + ")", Glossary.TermText(Term.DeadAir, b));
             staticCount.Set("Static " + f.StaticCount, Glossary.TermText(Term.Static, b));
-            drawPile.Set("Draw pile " + f.DrawPile.Count, Glossary.TermText(Term.DrawPile, b) + MonitoredDrawText(f));
+            drawPile.Set("Draw pile " + f.DrawPile.Count, Glossary.TermText(Term.DrawPile, b));
             discardPile.Set("Discard " + f.DiscardPile.Count, Glossary.TermText(Term.DiscardPile, b));
             burnout.Set(BurnoutText(f), Glossary.TermText(Term.Burnout, b));
 
@@ -158,7 +158,7 @@ namespace TurnTheDial.Game.ProtoCombat
 
             message.text = controller.Message;
             resultPanel.SetActive(f.IsOver);
-            if (f.IsOver) result.text = OutcomeText(f) + "\nPress R for a new fight (next seed).";
+            if (f.IsOver) result.text = OutcomeText(f) + "\nPress F5 for a new fight (next seed).";
             endTurnButton.interactable = !f.IsOver;
         }
 
@@ -189,18 +189,6 @@ namespace TurnTheDial.Game.ProtoCombat
             }
 
             return parts.Count == 0 ? "Burnout -" : "Burnout " + string.Join(", ", parts);
-        }
-
-        private static string MonitoredDrawText(Fight f)
-        {
-            if (f.MonitoredDraw.Count == 0) return "";
-            var sb = new StringBuilder("\nMonitor (top of the pile when peeked):");
-            for (int i = 0; i < f.MonitoredDraw.Count; i++)
-            {
-                sb.Append("\n  ").Append(i + 1).Append(". ").Append(f.MonitoredDraw[i].Card.DisplayName);
-            }
-
-            return sb.ToString();
         }
 
         private static string UpcomingText(Fight f)

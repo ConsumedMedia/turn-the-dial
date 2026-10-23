@@ -11,13 +11,13 @@ namespace TurnTheDial.Game.ProtoCombat
 {
     /// <summary>
     /// Owns the prototype fight. Exports the content assets to Core, sends player actions to Core
-    /// as commands, and never decides a rule. Debug keys (prototype only): R restart with the next
-    /// seed, S show the seed, D draw, W win, L lose.
+    /// as commands, and never decides a rule. Debug keys (development only, ui.md; Decided, user,
+    /// 2026-10-23): F5 restart with a new seed, F6 show the seed, F7 draw, F8 win, F9 lose.
     /// </summary>
     public sealed class ProtoCombatController : MonoBehaviour
     {
         [SerializeField] private FightContent content;
-        [Tooltip("First fight's seed. R derives the next seed from the current one through Core's SeedChain (no clock time).")]
+        [Tooltip("First fight's seed. F5 picks the next seed here in the Game layer from the current one via SeedChain (no clock time); not a run stream, never saved (save.md).")]
         [SerializeField] private string initialSeed = "1";
 
         private bool _endTurnConfirmPending;
@@ -44,21 +44,28 @@ namespace TurnTheDial.Game.ProtoCombat
 
         private void Update()
         {
+            // Debug keys are development builds only (ui.md). Editor and development builds report true.
+            if (!Debug.isDebugBuild) return;
             Keyboard kb = Keyboard.current;
             if (kb == null) return;
-            if (kb.rKey.wasPressedThisFrame) DebugRestart();
-            if (kb.sKey.wasPressedThisFrame) DebugShowSeed();
-            if (kb.dKey.wasPressedThisFrame) { Message = ""; Report(Fight.DebugDraw()); }
-            if (kb.wKey.wasPressedThisFrame) { Message = ""; Report(Fight.DebugWin()); }
-            if (kb.lKey.wasPressedThisFrame) { Message = ""; Report(Fight.DebugLose()); }
+            if (kb.f5Key.wasPressedThisFrame) DebugRestart();
+            if (kb.f6Key.wasPressedThisFrame) DebugShowSeed();
+            if (kb.f7Key.wasPressedThisFrame) { Message = ""; Report(Fight.DebugDraw()); }
+            if (kb.f8Key.wasPressedThisFrame) { Message = ""; Report(Fight.DebugWin()); }
+            if (kb.f9Key.wasPressedThisFrame) { Message = ""; Report(Fight.DebugLose()); }
         }
 
         public void NewFight(ulong seed)
         {
-            if (Fight != null) Fight.StateChanged -= OnStateChanged;
+            if (Fight != null)
+            {
+                Fight.StateChanged -= OnStateChanged;
+                Fight.DrawMonitored -= OnDrawMonitored;
+            }
             Seed = seed;
             Fight = new Fight(ContentExporter.BuildSetup(content, seed));
             Fight.StateChanged += OnStateChanged;
+            Fight.DrawMonitored += OnDrawMonitored;
             _endTurnConfirmPending = false;
             Message = "";
             FightReset?.Invoke();
@@ -87,7 +94,7 @@ namespace TurnTheDial.Game.ProtoCombat
         {
             if (Fight.IsOver)
             {
-                Report(CommandResult.Fail("The fight is over. Press R to restart."));
+                Report(CommandResult.Fail("The fight is over. Press F5 to restart."));
                 return;
             }
 
@@ -126,6 +133,14 @@ namespace TurnTheDial.Game.ProtoCombat
                 Message = result.Reason;
                 FightChanged?.Invoke();
             }
+        }
+
+        /// <summary>A Monitor draw-pile peek is a one-time look: shown as the message, not kept (brief §4).</summary>
+        private void OnDrawMonitored(System.Collections.Generic.IReadOnlyList<CardInstance> top)
+        {
+            var names = new System.Collections.Generic.List<string>();
+            for (int i = 0; i < top.Count; i++) names.Add(top[i].Card.DisplayName);
+            Message = "Monitor, top of your draw pile: " + (names.Count > 0 ? string.Join(", ", names) : "(empty)") + ".";
         }
 
         private void OnStateChanged()

@@ -24,7 +24,7 @@ One line per bug fix or correction: `- <what went wrong> → <the rule that prev
 - Cross-doc lists drifted (Buzz sources, where statuses are shown) → when a doc adds a source or display location, update every doc that lists them.
 - An edge case covered only one end of a cost modifier (Gridlock on 0-cost, not 3-cost) → edge cases for a modifier test both ends of the range it changes.
 - Formats, markets and achievements had no ids or used underscores → every data asset kind has dotted ids and a CONTENT.md section.
-- The default UI Navigate action binds W/A/S/D, so the prototype's debug keys (W win, S seed, D draw) also moved focus → check every new key against the UI module's bindings; the desk view strips W/A/S/D from Navigate (arrows, d-pad and stick still navigate).
+- The default UI Navigate action binds W/A/S/D, so the prototype's debug keys (W win, S seed, D draw) also moved focus → check every new key against the UI module's bindings; debug keys never use a key any input map binds (F5–F9; W/A/S/D stay on navigation, user 2026-10-23).
 - A CanvasScaler set to MatchWidthOrHeight cut off the bottom of the 1280×800 layout in a wider window → the desk-view canvas uses Expand, so the whole reference layout is always on screen.
 - A test that compared a steal against the listener change on the last turn also counted the ratings-loss penalty → on the final turn, subtract the ratings-check penalty before asserting a steal amount.
 - A test expected a discarded card to stay discarded, but the next turn's reshuffle drew it back → assert discards from the log line of the step itself, not from pile contents after later draws.
@@ -39,3 +39,14 @@ One line per bug fix or correction: `- <what went wrong> → <the rule that prev
 - The on-air warning flickered at 3 Hz, the photosensitivity limit → flashing UI stays under 3 flashes per second.
 - A test expected listeners to reach 0 from a card's listener cost but forgot the card's own Reach converts to listeners first → a test that combines Reach and a listener loss counts the conversion (10% of post-Lock Reach) before the loss.
 - The reviewer flagged the cue-slot hint and sim README still naming old controls and an old test name after a fix → after renaming a control or test, grep for every string that mentions the old one.
+- Renaming a serialized field (`endOfTurnInHand` → `triggers`) left the old key in every card asset → after renaming or removing a ScriptableObject field, force-reserialize the affected assets and re-author any data the rename dropped.
+- With the editor unfocused, Input System events queued on the physical keyboard and mouse were dropped, and the physical mouse kept overwriting a virtual mouse's pointer → play-mode input checks use separate virtual devices, run with focus-independent input settings that are restored afterwards, and the report says how each device was driven.
+- A queued key-down without its key-up left the key held, so the next press made no transition → every simulated press is followed by its release before the next press.
+- The builder read the brief's Program → Cue order as strict, so cueing ended your plays → cueing is a free action once per turn at any time during Program; a card cued this turn plays next turn (brief §2, user 2026-10-23).
+- No rule covered one card dropping both sides to 0, and the builder picked a loss → both at 0 from the same card is a win with listeners set to 1 (brief §2, user 2026-10-23).
+- Monitor's duration was unstated, so the draw peek was kept as live state → Monitor on intents rolls forward N ahead for the daypart; Monitor on the draw pile is a one-time look (brief §4, user 2026-10-23).
+- Air Horn's "+1 tempo" made Loop and The Flip need special cases → Air Horn makes the next Song count as a rising ramp and changes no tempo (brief §5, user 2026-10-23).
+- Complaint Call's end-of-turn loss was a one-off card field → card-level timing uses the general `triggers` field in brief §4 (end of turn, while in hand), never a bespoke field.
+- UI timing values (flicker, log length) lived only in a config asset → every UI tunable gets a ui.md key; flicker stays under 3 Hz and reduce motion turns it off (ui.md, user 2026-10-23).
+- Debug keys on W/S/D clashed with WASD navigation → debug keys live on F5–F9, never on keys any input map uses.
+- A LESSONS rule (strip W/A/S/D from Navigate) outlived the decision that replaced it → when a decision changes a rule, rewrite the older LESSONS line in place so the two never contradict.

@@ -141,7 +141,24 @@ namespace TurnTheDial.Core.Content
             }
 
             ValidateEffects(card.Effects, label + " effects", errors);
-            ValidateEffects(card.EndOfTurnInHand, label + " end-of-turn effects", errors);
+            if (card.Triggers == null)
+            {
+                errors.Add(label + ": missing triggers list.");
+            }
+            else
+            {
+                for (int i = 0; i < card.Triggers.Count; i++)
+                {
+                    CardTrigger t = card.Triggers[i];
+                    if (t == null || !Enum.IsDefined(typeof(CardTriggerKind), t.Kind))
+                    {
+                        errors.Add(label + " trigger " + i + ": unknown trigger.");
+                        continue;
+                    }
+
+                    ValidateEffects(t.Effects, label + " trigger " + i + " effects", errors);
+                }
+            }
         }
 
         /// <summary>

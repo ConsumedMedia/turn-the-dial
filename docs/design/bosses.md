@@ -81,8 +81,9 @@ stops counting. The countdown shows from turn 1.
   Algorithm's own last-turn penalty still applies.
 - The Flip: Loop's "T1 after T5" rule becomes "T5 after T1" counts as falling? Proposed: Loop's
   special case mirrors (T5 right after T1 counts as a falling ramp).
-- The Flip with Air Horn: Air Horn adds +1 tempo, which hurts a falling ramp. Proposed: after the flip,
-  Air Horn subtracts 1 instead. Confirm.
+- The Flip with Air Horn: Air Horn no longer changes tempo ("your next Song counts as a rising
+  ramp", user 2026-10-23). **Proposed:** after the flip, the Air-Horned Song still counts as a ramp
+  (the falling ramp the Flip rewards), +1 Flow.
 - Flow earned before turn 5 is kept at the flip. **Proposed.**
 - Algorithm on a Drop Song of the targeted genre: ×0.5 multiplies the whole Drop number (base + Hype
   + N × Flow). **Decided** (brief §3: boss modifiers multiply the whole Drop number).

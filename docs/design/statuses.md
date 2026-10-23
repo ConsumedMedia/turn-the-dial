@@ -64,7 +64,8 @@ Steal with Buzz: `floor(X × 1.5)`. For multi-hit Big Segments, apply per hit.
 
 ## Edge cases
 - Complaint Call in hand and Dead Air on the same turn: both apply (Dead Air first, per end-turn order).
-- Complaint Call cued: it isn't in hand, so it doesn't trigger. Proposed: confirm with designer.
+- Complaint Call cued: it isn't in hand, so it doesn't trigger. **Decided** (user, 2026-10-23): its trigger is "end of turn,
+  while in hand" (brief §4 `triggers`).
 - Complaint Call held by Hold effects: still triggers each end of turn while in hand.
 - Buzz 0: no bonus, no decrement below 0.
 - Contest when audience is at start: no gain.
@@ -75,7 +76,6 @@ Steal with Buzz: `floor(X × 1.5)`. For multi-hit Big Segments, apply per hit.
 
 ## Open questions (ask before building)
 - Cash never goes negative (an effect that would take more is unavailable). Proposed above.
-- Complaint Call in the cue slot doesn't trigger its end-of-turn loss. Proposed above.
 - Interference shuffled into the draw pile at a random position on `rng.shuffle`. Proposed above.
   Alternative: placed on top (fully visible, pillar 1).
 

@@ -51,7 +51,7 @@ namespace TurnTheDial.Game.ProtoCombat
                 Uid = -1;
                 title.text = "Cue slot";
                 meta.text = "empty";
-                rules.text = "Right-click a card, or press C / X, to cue it.";
+                rules.text = "Right-click, C or X cues a card (free, once per turn). It plays from here next turn.";
                 background.color = unplayableColor;
                 SetTextColor(dimTextColor);
                 tooltip.Text = Glossary.TermText(Term.CueSlot, fight.Balance);

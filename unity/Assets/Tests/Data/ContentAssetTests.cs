@@ -125,8 +125,10 @@ namespace TurnTheDial.Data.Tests
             CardData cc = cat.Get("card.int.complaint_call");
             Assert.AreEqual((CardType.Interference, 1, CardPool.Rival), (cc.Type, cc.Cost, cc.Pool));
             Assert.IsTrue(cc.Keywords.Pulled);
-            Assert.AreEqual(EffectKind.LoseListeners, cc.EndOfTurnInHand[0].Kind);
-            Assert.AreEqual(3, cc.EndOfTurnInHand[0].Amount);
+            Assert.AreEqual(1, cc.Triggers.Count);
+            Assert.AreEqual(CardTriggerKind.EndOfTurnInHand, cc.Triggers[0].Kind);
+            Assert.AreEqual(EffectKind.LoseListeners, cc.Triggers[0].Effects[0].Kind);
+            Assert.AreEqual(3, cc.Triggers[0].Effects[0].Amount);
             Assert.IsFalse(cc.Keywords.OnAir);
         }
 

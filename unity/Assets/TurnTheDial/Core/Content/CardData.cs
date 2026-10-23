@@ -42,10 +42,10 @@ namespace TurnTheDial.Core.Content
         public List<EffectData> Effects { get; set; } = new List<EffectData>();
 
         /// <summary>
-        /// Resolve at end of turn (end-turn step 2) while the card is in hand, e.g. Complaint Call's
-        /// "lose 3 listeners". Uses the same effect library.
+        /// Effect lists that fire on a trigger instead of on play (brief §4 `triggers`; Decided, user,
+        /// 2026-10-23). v1: end of turn while in hand, e.g. Complaint Call's "lose 3 listeners".
         /// </summary>
-        public List<EffectData> EndOfTurnInHand { get; set; } = new List<EffectData>();
+        public List<CardTrigger> Triggers { get; set; } = new List<CardTrigger>();
 
         /// <summary>The full remastered card, or null (Interference has none).</summary>
         public CardData Upgrade { get; set; }
