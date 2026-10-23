@@ -9,9 +9,13 @@ slots force choices: hiring a 4th means letting one go.
 ## Rules
 - **3 slots**, shown on the staff board by the booth door.
 - Each staff member is data: id, name, trait text, triggers, effects (same system as gear).
-- Hiring when all 3 slots are full: choose one to let go, or decline the hire. Let-go staff are gone for the run.
-- Sources: mainly Station Events, sometimes Sponsor Meetings.
-- Any chance-based trait rolls through the `staff` RNG stream and shows its result **before you act**.
+- Hiring when all 3 slots are full: choose one to let go (brief §8), or decline the hire
+  (**Proposed**). Let-go staff are gone for the run (**Proposed**; saved as "staff let go this run",
+  `save.md`).
+- Sources: mainly Station Events, sometimes Sponsor Meetings. Staff offers roll on `rng.events` or
+  `rng.shop` (**Proposed**).
+- Any chance-based trait rolls through the `rng.staff` stream (**Proposed**, `save.md` RNG streams)
+  and shows its result **before you act**.
 
 ### Staff defined so far
 | Staff | Trait | Effect |
@@ -37,12 +41,22 @@ The rest of the v1 pool (about 8 staff in total) is designed in a later session 
 - Loose Cannon +6 Reach: added to base (before Hype/Flow) or flat after? Proposed: added to base like Hype.
 - Loose Cannon bad roll at 3 listeners or fewer: the run ends.
 - Declining a hire: the event or shop outcome is lost (no refund unless the event says so).
-- Two staff with the same trigger: slot order (left to right).
+- Two staff with the same trigger: slot order (left to right). **Proposed.**
+- Gear and staff on the same trigger (daypart start, turn start, card played, end of turn, daypart
+  won, and so on): all gear first in acquisition order, then staff in slot order. **Proposed** (same
+  rule in `combat.md` and `gear.md`). E.g. at turn start, Old Reliable's Loyalty comes after any
+  turn-start gear.
+- A let-go staff member is never offered again this run (proposed), even by an event.
 
 ## Open questions (ask before building)
 - Loose Cannon's −3: applied at turn start when rolled (proposed), or at end of turn?
 - Loose Cannon's +6: base or flat (proposal above)?
 - Can a let-go staff member be rehired later in the same run? Proposed: no.
+- Can you decline a hire when all 3 slots are full? Proposed: yes (the offer is lost).
+- On every trigger shared by gear and staff, gear resolves before staff; staff in slot order.
+  Proposed above.
+- Loose Cannon and other chance traits on `rng.staff`; staff offers on `rng.events` / `rng.shop`.
+  Proposed above.
 
 ## Done checklist
 - [ ] Staff schema + ScriptableObject + exporter

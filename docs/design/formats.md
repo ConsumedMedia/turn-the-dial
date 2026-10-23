@@ -16,12 +16,13 @@ and a 10-card starting deck. Talk Radio is out of scope for v1.
 | Starting gear | Ribbon Mic | Sampler | Mail Sack |
 | Unlock | From the start | First time you reach book 2 | First time you beat a boss |
 
-You start a run at full listeners (= max).
+You start a run at full listeners (= max). **Proposed** (the brief gives only the maximum).
 
 ### Signatures
 - **Anthem (Classic Rock):** the first Anthem-keyword Song you play each turn gets +50% Reach
   (multiplied after the Flow multiplier) and gives Loyalty equal to its tempo × 2, regardless of what
-  was played before it. Songs without Anthem never use up the bonus. **Decided.**
+  was played before it. Songs without Anthem never use up the bonus. **Decided** (brief §5; LESSONS
+  Anthem line).
 - **Loop (Hip-Hop Heat):** Flow cap 15. A tempo 1 song right after a tempo 5 song counts as a ramp.
 - **Mailbag (Country Roads):** Reach converts to listeners at 20% instead of 10%. Hype doesn't drop at
   end of turn if you played a DJ Break that turn.
@@ -64,8 +65,9 @@ You start a run at full listeners (= max).
 | 1 | Feed Store Spot | Ad | 0 | +20 Cash, lose 3 listeners [+30 Cash] |
 | 1 | Caller Nine Wins | Promo | 1 | +3 Hype [+5] |
 
-Remastered Ads keep their listener cost; remastered Listener Mail keeps +1 Hype; remastered Hype Man
-keeps 3 Reach.
+**Proposed:** fields a bracketed RM value doesn't mention keep their base value. So remastered Ads
+keep their listener cost; remastered Listener Mail keeps +1 Hype; remastered Hype Man keeps 3 Reach.
+The brief's brackets list only what changes, so unchanged fields are the simplest reading.
 
 ## Tunable values
 All numbers in the tables above, plus:
@@ -73,7 +75,7 @@ All numbers in the tables above, plus:
 | --- | --- |
 | `anthem.reachFactor` | 1.5 |
 | `anthem.loyaltyPerTempo` | 2 |
-| `loop.flowCap` | 15 |
+| `flow.capLoop` | 15 (defined in `flow.md`) |
 | `mailbag.conversion` | 0.20 |
 | `ribbonMic.loyalty` | 3 |
 | `sampler.flowThreshold / draw` | 5 / 2 |
@@ -82,21 +84,31 @@ All numbers in the tables above, plus:
 ## Edge cases
 - Anthem: Album Cut then Power Ballad in one turn: Power Ballad still gets the bonus.
 - Anthem: two Anthem songs in one turn: only the first gets the bonus.
-- Anthem on a Drop song: the +50% applies to the Drop formula's result.
-- Sampler: Flow reaching 5 via a jump (4 → 6) counts as reaching 5. Triggers once per daypart.
+- Anthem on a Drop song: the ×1.5 multiplies the whole Drop number (base + Hype + N × Flow), with
+  no Flow multiplier. **Decided** (brief §3).
+- Sampler: Flow reaching 5 via a jump (4 → 6) counts as reaching 5. **Proposed.** Triggers once per
+  daypart.
 - Sampler draw 2 with a full hand: extras go to discard.
 - Mail Sack at max listeners: no effect.
 - Hip-Hop starter songs: Corner Cypher, Block Party, Basement Session and Rooftop Jam have different
-  names, so playing all four in a daypart adds no Burnout. **Decided.**
+  names, so playing all four in a daypart adds no Burnout. **Decided** (brief §5 starter table;
+  LESSONS Block Party line).
 - Loop + Air Horn: tempo 5 + 1 = 6 for the ramp check; a T1 after it still counts as a ramp.
+  **Proposed.**
 
 ## Open questions (ask before building)
 - **Mail Sack:** "after winning a daypart" — does it include Prime Time and boss wins? Proposed: yes, any fight.
-- **Remastered Ads:** the brief lists only the Cash change; confirm listener cost is unchanged.
+- **Remaster carry-overs:** fields a bracket doesn't mention keep their base value (Ads keep their
+  listener cost, Listener Mail RM keeps +1 Hype, Hype Man RM keeps 3 Reach). Proposed above.
+- **Starting listeners:** a run starts at full listeners. Proposed above.
+- **Sampler:** a jump past 5 (4 → 6) counts as reaching 5. Proposed above.
+- **Loop + Air Horn:** a T1 after an Air-Horned T5 (counted as 6) still ramps. Proposed above.
 
 ## Done checklist
 - [ ] Format data assets for all three, exported to Core
-- [ ] Each signature tested, including the edge cases above
+- [ ] Each signature tested, including the edge cases above (Anthem on a Drop song multiplies the
+      whole Drop number)
+- [ ] Remastered starter cards keep every field their RM bracket doesn't mention
 - [ ] Each starting gear tested
 - [ ] Starting decks match these tables exactly (data validation test)
 - [ ] Unlock rules wired to `meta.md`

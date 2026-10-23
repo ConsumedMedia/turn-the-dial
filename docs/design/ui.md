@@ -58,7 +58,8 @@ rule, the color rule wins.
 ### Input
 - Input System action maps: `UI`, `Desk`, `Map`. Gamepad: d-pad/stick moves focus between booth objects
   and cards; A plays/confirms, B backs out, X cues, Y opens tooltip, Start ends turn (with confirm when
-  it would cause Dead Air). Keyboard mirrors gamepad; mouse hover shows tooltips.
+  it would cause Dead Air). Keyboard mirrors gamepad; mouse hover shows tooltips. **Proposed** (the
+  button map and the Dead Air confirm; the brief requires only full controller support).
 - Focus is always visible. No dead ends: every screen has a focusable way back.
 - Glyphs switch to the last-used device.
 
@@ -70,16 +71,26 @@ intent and on-air light. Rules are identical to a normal fight.
 | Key | Start |
 | --- | --- |
 | `ui.minTextPx` | 12 at 1280×800 |
-| `ui.gameSpeeds` | 1×, 2× |
-| `ui.textScale` | 100%, 125%, 150% |
-| `ui.rivalBlinkHz` | 1.0 |
-| `ui.needleLerp` | 0.5 s |
+| `ui.gameSpeeds` | 1×, 2× *(proposed)* |
+| `ui.textScale` | 100%, 125%, 150% *(proposed)* |
+| `ui.rivalBlinkHz` | 1.0 *(proposed)* |
+| `ui.needleLerp` | 0.5 s *(proposed)* |
+
+The brief requires a speed toggle, a text-size setting, a blinking rival and a drifting needle, but
+gives no values; every value above except `ui.minTextPx` is **Proposed**.
 
 ## Edge cases
 - 10 cards in hand at 1280×800 with 150% text: the desk mat fans/overlaps cards but each stays selectable.
 - Monitor showing 3+ ghosted intents: they shrink, never overlap the rival's readout.
 - Colorblind preview modes: every you-versus-rival signal still distinguishable.
 - Gamepad disconnect mid-fight: pause and prompt.
+
+## Open questions (ask before building)
+- Gamepad button map (A play, B back, X cue, Y tooltip, Start end turn) and the end-turn confirm when
+  it would cause Dead Air. Proposed above.
+- Game speeds 1× and 2×; text scales 100 / 125 / 150%; rival blink 1.0 Hz; needle drift 0.5 s.
+  Proposed above.
+- Is a fight node's rival shown on the town map? See `map.md` (proposed: no).
 
 ## Done checklist
 - [ ] Every screen in the tables built and navigable with mouse, keyboard and gamepad

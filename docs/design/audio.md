@@ -7,14 +7,16 @@ Sound sells the broadcast: short original loops per format, all-hardware foley, 
 radio-filtered on-screen text. No licensed music, no voice acting.
 
 ## Rules
-- **Music:** short original loops per format (Classic Rock, Hip-Hop Heat, Country Roads), plus title,
-  map and boss variants. No licensed music. Source and budget are still open (brief "Still open").
+- **Music:** short original loops per format (Classic Rock, Hip-Hop Heat, Country Roads). No licensed
+  music. Source and budget are still open (brief "Still open").
+- Title, map and boss music variants. **Proposed** (the brief names only loops per format).
 - **DJ chatter:** on-screen text with a radio-filter visual treatment. No voice acting.
 - **Foley is all hardware:** needle drops, fader clicks, tuner static, the on-air relay, crate flips,
   cash tin, clock tick.
 - Audio reacts to Core events from the Game layer; Core never references audio.
 - Mix buses: Master, Music, Foley, UI. Each has a slider in Settings.
-- Game speed 2× shortens foley waits but never pitches music.
+- The fast game speed (2×, `ui.gameSpeeds` in `ui.md`) shortens foley waits but never pitches music.
+  **Proposed** (the speed value and its audio behavior).
 
 ### Event → sound map (v1)
 | Core event | Sound |
@@ -34,9 +36,9 @@ radio-filtered on-screen text. No licensed music, no voice acting.
 ## Tunable values
 | Key | Start |
 | --- | --- |
-| `audio.musicLoopLength` | 30–60 s |
-| `audio.defaultMix` | Master 80, Music 70, Foley 80, UI 70 |
-| `audio.flowStepSemitones` | 1 |
+| `audio.musicLoopLength` | 30–60 s *(proposed)* |
+| `audio.defaultMix` | Master 80, Music 70, Foley 80, UI 70 *(proposed)* |
+| `audio.flowStepSemitones` | 1 *(proposed)* |
 
 ## Edge cases
 - Many events in one frame (multi-hit Big Segment): sounds queue with a short stagger, capped voices.
@@ -45,6 +47,11 @@ radio-filtered on-screen text. No licensed music, no voice acting.
 
 ## Open questions (ask before building)
 - Music source and budget (brief, still open). Blocks final music, not the first playable.
+- Title, map and boss music variants beyond the per-format loops. Proposed above; adding them is a
+  scope change to brief §11.
+- Fast speed 2× shortens foley but never pitches music. Proposed above.
+- Default mix (Master 80, Music 70, Foley 80, UI 70), loop length 30–60 s, Flow step 1 semitone.
+  Proposed above.
 
 ## Done checklist
 - [ ] Audio buses and Settings sliders

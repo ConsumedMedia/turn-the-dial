@@ -22,15 +22,18 @@ One turn = one player phase, then one rival phase.
 1. Shuffle the deck into the draw pile. Flow, Hype, Burnout, Loyalty and the Dead Air count start
    at 0. The cue slot is empty. "Last song" is empty.
 2. Apply market modifiers (see `markets.md`).
-3. Apply daypart-start gear and staff effects (in slot / acquisition order).
+3. Apply daypart-start gear and staff effects: gear in acquisition order, then staff in slot order
+   (left to right). **Proposed.** The same gear-before-staff order applies on every trigger they
+   share (turn start, card played, end of turn, daypart won, and so on; `gear.md`, `staff.md`).
 4. Reveal the rival's turn-1 intent.
 
 ### Player phase (in order)
 1. **Turn start.** Loyalty clears to 0. Airtime is set to 3 plus modifiers. Start-of-turn gear and
    staff effects trigger.
 2. **Draw 5.** If the draw pile is empty mid-draw, shuffle the discard pile into it and continue.
-   Hand limit is 10; each extra draw goes straight to the discard pile. The cued card stays in the
-   cue slot (it does not count toward the hand limit) and can be played from there.
+   Every shuffle uses the `rng.shuffle` stream (see `save.md`, RNG streams). Hand limit is 10; each
+   extra draw goes straight to the discard pile. The cued card stays in the cue slot and can be
+   played from there. The cued card does not count toward the hand limit. **Proposed.**
 3. **Program.** Play cards in any order by paying their Airtime. Each card resolves fully, then win
    and loss are checked.
 4. **Cue (optional).** If the cue slot is empty, move 1 card from hand into it.
@@ -58,21 +61,25 @@ Win and loss are also checked after each end-turn step.
 
 **Non-song card with Reach:** `Reach = floor(base × Exposed)`. Skips Hype and the Flow multiplier.
 
-**Drop N card:** see `flow.md`.
+**Drop N card (Song or not):** one number, `floor((base + Hype + N × Flow) × Anthem × Burnout ×
+Exposed × boss modifiers)`, no Flow multiplier; Hype and Burnout only for Songs (`flow.md`).
 
-**Applying Reach (every source):**
+**Applying Reach (every source):** each card's Reach is one hit, applied once. A Drop card's base
+and Drop parts are one number, never two hits.
 1. Lock absorbs Reach first.
 2. Whatever is left lowers the rival's audience (not below 0).
 3. You gain listeners equal to 10% (rounded down) of the Reach that got past Lock, up to your
    maximum (20% with Mailbag). The full post-Lock Reach counts, even past the rival's remaining audience.
 4. For a Song: then update Flow from this song (`flow.md`). A song never benefits from the Flow it
    earns itself.
+5. For a Drop card: then set Flow to 0 (after step 4 on a Drop Song). Flow is always 0 after a Drop
+   card.
 
 ### Steal resolution
 - A Steal of X (Buzz already included) is absorbed by Loyalty first; the rest lowers your listeners.
 - A Big Segment shown as N hits resolves each hit separately through Loyalty.
 - Steals don't add to the rival's audience.
-- **Loyalty only absorbs rival steals. Decided.** Ad listener costs, Dead Air, Complaint Call and
+- **Loyalty only absorbs rival steals. Decided** (brief §3 Loyalty row; LESSONS Loyalty line). Ad listener costs, Dead Air, Complaint Call and
   every other listener loss ignore Loyalty.
 
 ### Dead Air
@@ -114,14 +121,25 @@ Triggers at end of turn if no On Air card was played that turn.
 - Listener gain at maximum: capped, the excess is lost.
 - Tie on share at the ratings check: you win.
 - Commercial Break is the shown intent during the player phase in which Exposed applies.
+- Drop card into Lock: one absorb of the combined number, one listener conversion (`flow.md`).
+- Daypart-start gear or staff with a Loyalty effect: the turn-1 Loyalty clear (brief §2 order) wipes
+  it before any steal. Proposed: such content is not allowed (see open question).
 
 ## Open questions (ask before building)
-- Do daypart-start gear and staff fire before or after the turn-1 Loyalty clear? Proposed: daypart-start
-  Loyalty is granted after the turn-1 clear so it isn't wasted.
+- **Daypart-start Loyalty.** Brief §2 runs daypart-start gear and staff (step 3) before turn 1's turn
+  start, which clears Loyalty, so any Loyalty granted at daypart start is wasted. **Proposed:**
+  daypart-start effects grant no Loyalty (the content validator rejects `GainLoyalty` on the
+  daypart-start trigger; use the turn-start trigger instead). Alternative: grant daypart-start Loyalty
+  after the turn-1 clear. That contradicts the brief's order and **needs a brief change**.
+- On every trigger shared by gear and staff (daypart start, turn start, card played, end of turn,
+  daypart won, and so on), gear resolves first in acquisition order, then staff left to right.
+  Proposed above.
+- The cued card doesn't count toward the hand limit. Proposed above.
 
 ## Done checklist
 - [ ] Turn loop runs headless for 6, 7 and 8 turns with the exact phase order above
-- [ ] Reach formula tested for Song, non-song, Exposed, Burnout floor, Anthem, Lock absorb
+- [ ] Reach formula tested for Song, non-song, Drop (one hit), Exposed, Burnout floor, Anthem, Lock absorb
+- [ ] Shuffles use only `rng.shuffle` (`save.md`)
 - [ ] Listener conversion tested at 10%, 20%, rounding down and the maximum cap
 - [ ] Steal, Big Segment hits and Loyalty absorb tested; Ad costs and Complaint Call ignore Loyalty
 - [ ] Dead Air 5/10/15 and 8/13/18, ignoring Loyalty, breaking Flow

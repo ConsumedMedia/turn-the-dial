@@ -8,11 +8,11 @@ bundles, formats and markets. A first-time player can win with only the starting
 
 ## Rules
 - **Ratings Points** at the end of every run, win or lose:
-  - 10 per daypart won (regular and Prime Time)
+  - 10 per daypart won (regular and Prime Time; Prime Time counting is **Proposed**)
   - 25 per boss beaten
-  - 5 per book reached (book 1 counts)
+  - 5 per book reached (book 1 counts: **Proposed**)
 - **Thresholds** on lifetime Ratings Points unlock about 15 fixed bundles of 3–5 cards, gear or events
-  into the pools. Bundles unlock in a fixed order.
+  into the pools. Bundles unlock in a fixed order. **Proposed** (fixed order).
 - **Formats:** Classic Rock from the start. Hip-Hop Heat: first time you reach book 2. Country Roads:
   first time you beat a boss.
 - **Markets:** beating market N with any format unlocks market N+1 (`markets.md`).
@@ -38,6 +38,9 @@ bundles, formats and markets. A first-time player can win with only the starting
 - Threshold curve: the numbers above are placeholders. Tune in the sim so everything unlocks after
   roughly 8+ hours of play (pillar 7) without feeling like a grind wall (pillar 3).
 - Does abandoning a run award points (proposed yes)?
+- Do Prime Time wins count as dayparts won for Ratings Points? Proposed: yes.
+- Does book 1 count as a book reached (every run earns at least 5)? Proposed: yes.
+- Do bundles unlock in a fixed order? Proposed: yes.
 
 ## Done checklist
 - [ ] RP calculation tested for wins, losses, and mid-book losses

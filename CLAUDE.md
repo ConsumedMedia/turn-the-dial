@@ -32,7 +32,7 @@ These rules apply to every session. If a rule here blocks a request, say so and 
 - Every random roll goes through one seeded RNG service in Core (`IRng`). No `System.Random`,
   `UnityEngine.Random`, `Guid`, or clock time anywhere else.
 - Same seed plus same choices gives the same run, bit for bit. Saves store the seed and RNG state.
-- Separate named streams (map, rewards, shop, shuffle, events) so one system's rolls don't shift
+- Separate named streams (map, rewards, shop, shuffle, rivals, events) so one system's rolls don't shift
   another's. Each stream is derived from the run seed.
 - Iterate collections in a defined order. Never rely on `Dictionary` or `HashSet` order.
 

@@ -20,7 +20,7 @@ dresses the town diorama differently.
 - Beating market N with any format unlocks market N+1.
 - Market modifiers apply at daypart start step 2 (`combat.md`).
 - "Rival audience" for College Town includes Prime Time and bosses, and changes the starting value
-  used for the ratings check.
+  used for the ratings check. **Proposed.**
 - The guided first fight: only on the profile's first run, in Chill Coastal Village (see `ui.md`).
 
 ## Tunable values
@@ -39,6 +39,10 @@ dresses the town diorama differently.
 
 ## Open questions (ask before building)
 - College Town rounding (proposed up).
+- Does College Town's +10% apply to Prime Time and bosses, and to the ratings-check starting value?
+  Proposed: yes.
+
+Market ids are listed in `docs/CONTENT.md` (`market.chill_coastal_village` … `market.big_metro`).
 
 ## Done checklist
 - [ ] Market data assets, cumulative rule stacking tested for every tier

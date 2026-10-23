@@ -56,7 +56,7 @@ For a song: `Reach = floor((base + Hype) × (1 + 0.1 × Flow) × Burnout factor 
 2. You gain listeners equal to **10%** of the Reach that got past Lock (rounded down), up to your maximum.
 3. Then update Flow from this song (section 3). A song never benefits from the Flow it earns itself.
 
-Non-song cards that deal Reach skip Hype and the Flow multiplier. Drop cards follow their own formula (section 3).
+Non-song cards that deal Reach skip Hype and the Flow multiplier. Drop cards, Song or not, follow their own formula (section 3): one hit, no Flow multiplier.
 
 ---
 
@@ -71,7 +71,7 @@ Non-song cards that deal Reach skip Hype and the Flow multiplier. Drop cards fol
 | **Loyalty** | You | Block. Absorbs rival steals before your listeners take any, and nothing else. Clears at the start of your turn. Does **not** block Dead Air, Ad listener costs, or any other listener loss. |
 | **Lock** | Rival | Rival block, from the Heavy Rotation intent. Absorbs your Reach first. Clears at the start of the rival phase. |
 | **Flow** | You | Combo counter, 0 to 10 (cap can be raised by Loop, gear and cards). Each song adds **+1** if its tempo is higher than the last song's (tempo ramp) and **+1** if both it and the last song are your format's genre (genre streak). Each stack gives songs **+10% Reach**. Flow lasts the whole daypart. **Breaks to 0:** playing an Ad, taking Dead Air, or certain rival effects. A song with lower tempo only misses the ramp bonus. "Last song" = the most recent Song played this daypart; non-song cards don't change it, except an Ad, which clears it. |
-| **Drop** | Card keyword | `Drop N`: deal the card's base Reach + N × Flow, ignoring the Flow multiplier, then set Flow to 0. Hype and Burnout still apply if the card is a Song. The Drop resolves last: a Drop Song's own Flow update happens first and is then wiped, so Flow is always 0 after a Drop card. |
+| **Drop** | Card keyword | `Drop N`: the card deals one number, `floor((base Reach + Hype + N × Flow) × Anthem × Burnout × Exposed × boss modifiers)`, as a single hit (Lock absorbs it once and it converts to listeners once). The Flow multiplier never applies to a Drop card. Hype and Burnout apply only if the card is a Song; Anthem only if it is an Anthem Song that gets the bonus. Then set Flow to 0. The Drop resolves last: a Drop Song's own Flow update happens first and is then wiped, so Flow is always 0 after a Drop card. |
 | **Hype** | You | Each stack gives every Song you play +1 Reach (added to base, before the Flow multiplier). −1 at the end of your turn. Built by Promos. |
 | **Buzz** | Rival | While Buzz is above 0, the rival's steals take **50% more** listeners (rounded down). −1 at the end of the rival phase. Already included in the intent number shown. |
 | **Burnout** | Song card | Each repeat play of a song with the same name (remastered versions count) in a daypart adds 1 Burnout. **−25% Reach per stack**, never below 25% of base. Resets after the daypart. |
@@ -99,7 +99,7 @@ Every card is a data asset; no card logic is hard-coded per card (pillar 7).
 | `genre` | Songs only: Rock, Hip-Hop, Country, Pop (shared pool). Other types: none. |
 | `tempo` | Songs only: 1 to 5. Shown as five pips on the record label. |
 | `rarity` | Starter, Common, Uncommon, Rare, Special (Interference, event cards). |
-| `pool` | Classic Rock, Hip-Hop Heat, Country Roads, or Shared. |
+| `pool` | Classic Rock, Hip-Hop Heat, Country Roads, Shared, or Rival (Interference cards). |
 | `reach`, `loyalty`, `hype`, `cash`, `listenerCost` | Base numbers; any can be 0. |
 | `keywords` | See list below. Every keyword has a tooltip (pillar 5). |
 | `effects` | An ordered list of data-driven effects (draw N, gain Flow, peek N, etc.). |
@@ -179,7 +179,7 @@ Every card is a data asset; no card logic is hard-coded per card (pillar 7).
 - The whole book and every node type are visible from the start (pillar 1).
 - **Row 1:** all Daypart. **Row 4:** all Remote Broadcast. **Row 7:** all Production Room. **Row 8:** Ratings Book boss.
 - **Rows 2, 3, 5, 6** are weighted *(tune)*: Daypart 45%, Station Event 25%, Sponsor Meeting 12%, Prime Time 10% (rows 3 and up only), Production Room 8%.
-- **Generator constraints:** every path has at least one reachable Sponsor Meeting. No two Sponsor Meetings or Production Rooms in a row on the same path. About 4 to 5 fights per book on any path.
+- **Generator constraints:** every path has at least one reachable Sponsor Meeting. No two Sponsor Meetings or Production Rooms in a row on the same path. At most 4 regular Daypart nodes on any path, so a book's 4 rivals never repeat; Prime Time fills any extra fight slot. About 4 to 5 fights per book on any path, not counting the boss.
 - Each daypart's wash comes from its row: rows 1 to 2 Morning drive, rows 3 to 4 Midday, rows 5 to 6 Afternoon drive, rows 7 to 8 Overnight.
 
 | Node | What it does |

@@ -19,16 +19,22 @@ achievements, cloud saves, an early Coming Soon page and a Next Fest demo. Price
 ### Achievements (v1 proposal)
 | Id | Name | Condition |
 | --- | --- | --- |
-| `ach_first_win` | On the Air | Win your first daypart |
-| `ach_book1` | First Book | Beat the book 1 boss |
-| `ach_season` | Ratings Champ | Win a run |
-| `ach_each_format` | Full Spectrum | Win a run with each format |
-| `ach_big_metro` | Big Metro | Win a run in Big Metro |
-| `ach_flow_max` | In the Pocket | Reach the Flow cap |
-| `ach_no_dead_air` | Never Silent | Win a run without taking Dead Air |
-| `ach_drop` | Drop It | Deal 50+ Reach with one Drop |
-| `ach_ads` | Sold Out | Play 5 Ads in one daypart |
-| `ach_all_rivals` | Know the Market | Beat all 12 regular rivals |
+| `ach.first_win` | On the Air | Win your first daypart |
+| `ach.book1` | First Book | Beat the book 1 boss |
+| `ach.season` | Ratings Champ | Win a run |
+| `ach.each_format` | Full Spectrum | Win a run with each format |
+| `ach.big_metro` | Big Metro | Win a run in Big Metro |
+| `ach.flow_max` | In the Pocket | Reach the Flow cap |
+| `ach.no_dead_air` | Never Silent | Win a run without taking Dead Air |
+| `ach.drop` | Drop It | Deal 50+ Reach with one Drop card (one hit) |
+| `ach.ads` | Sold Out | Play 5 Ads in one daypart |
+| `ach.all_rivals` | Know the Market | Beat all 12 regular rivals |
+
+The state each achievement needs across turns, runs and sessions is listed in `save.md`
+(Achievement progress).
+
+Ids follow the project's dotted pattern (`ach.*`). If Steamworks rejects dots in API names, the
+Game-layer bridge maps each id to its Steam API name; Core and saves use the dotted id.
 
 ## Tunable values
 | Key | Start |

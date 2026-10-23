@@ -8,3 +8,19 @@ One line per bug fix or correction: `- <what went wrong> → <the rule that prev
 - Four Hip-Hop starter songs shared the name Block Party and burned each other out → starter songs meant to be played together get distinct names (brief §5).
 - Brief didn't define quitting mid-fight → resume at the start of the current turn from a turn-start snapshot (brief §6).
 - Brief didn't say whether Loyalty blocks Ad costs → Loyalty absorbs rival steals and nothing else (brief §3).
+- Brief's Drop row left open which multipliers apply and let a doc split a Drop card into two hits → a Drop card deals one number, floor((base + Hype + N × Flow) × Anthem × Burnout × Exposed × boss modifiers), as one hit with no Flow multiplier; Hype and Burnout only for Songs (brief §2, §3).
+- Brief's "about 4 to 5 fights" didn't say whether the boss counts or how a book's 4 rivals avoid repeats → at most 4 regular Daypart nodes on any path, Prime Time fills extra fight slots, the boss is counted separately (brief §6).
+- Brief's `pool` field had no value for Interference cards → Interference cards are in the Rival pool (brief §4).
+- cards.md ran Drop as a separate effect before the song's Flow update → any order of operations a design doc restates is checked line by line against the brief and LESSONS before it is written.
+- Design docs stated rules the brief doesn't settle as if decided → every rule the brief doesn't settle is marked **Proposed** and listed under that doc's Open questions.
+- Design docs added things the brief doesn't have (title/map/boss music) → anything beyond the brief's scope is marked Proposed as a scope change, never written as a rule.
+- A brief number (reward Cash) had no home in any design doc, and four tunables were defined twice under different keys → every tunable number has exactly one key in one owning doc; any other doc lists it only as a pointer ("defined in X.md"), and each review checks every Tunable values table for duplicates.
+- Passives that grow or multiply a value (Top 40 Countdown's Steals, Pledge Drive's double Contest) went past the brief's book ranges → any effect that grows or multiplies a brief-ranged value stays inside the brief's range for that book.
+- RNG streams were unnamed for most rolls → every random roll names its stream from `save.md`'s RNG streams table.
+- No-repeat lists, once-per-daypart flags, pending bonuses, in-node offers and achievement counters had no saved state → every state that outlives one turn, or lives inside a node, is listed in `save.md`, including each achievement's counter at its scope (search docs for "once", "first", "this daypart", "pending" before closing a doc).
+- A doc's proposal quietly contradicted the brief (turn order; Gridlock making a 4-cost card) → a proposal that contradicts the brief says it needs a brief change, and the brief-compliant option is the Proposed default.
+- Rules the user decided in earlier sessions were marked Decided with no source → every Decided names its source (brief section, LESSONS line, or the user's commit).
+- A worked example (Banger after Rooftop Jam) skipped the genre streak → every worked example applies every rule in the chain (ramp, streak, Hype, multipliers) and is recomputed before it is written.
+- Cross-doc lists drifted (Buzz sources, where statuses are shown) → when a doc adds a source or display location, update every doc that lists them.
+- An edge case covered only one end of a cost modifier (Gridlock on 0-cost, not 3-cost) → edge cases for a modifier test both ends of the range it changes.
+- Formats, markets and achievements had no ids or used underscores → every data asset kind has dotted ids and a CONTENT.md section.
